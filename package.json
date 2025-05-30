@@ -45,18 +45,18 @@
     "content-processing"
   ],
   "author": {
-    "name": "AI Assistant",
-    "email": "assistant@example.com"
+    "name": "tetipong2542",
+    "email": "tetipong2542@example.com"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/ithy-data-scraper.git"
+    "url": "git+https://github.com/tetipong2542/ithy-data-scraper.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/ithy-data-scraper/issues"
+    "url": "https://github.com/tetipong2542/ithy-data-scraper/issues"
   },
-  "homepage": "https://github.com/your-username/ithy-data-scraper#readme",
+  "homepage": "https://github.com/tetipong2542/ithy-data-scraper#readme",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
