@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83GK3MW9VQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-83GK3MW9VQ');
+    </script>
+
+    <!-- Google Fonts -->
+    <link type="text/css" href="https://cdn.jsdelivr.net/npm/lato-font@3/css/lato-font.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preload" href="https://storage.googleapis.com/e-object-409003.firebasestorage.app/dots.gif" as="image" type="image/gif">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1A1C1F">
+    <title>Ithy | Account</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+      body, html {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+        font-weight: 300;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      a {
+        color: slategray;
+        text-decoration: none;
+      }
+
+      button.active[data-plan="annual"] {
+        background: rgba(51,170,102,0.5);
+        color: white;
+        border: 1px solid #aaa;
+      }
+
+      button.active[data-plan="monthly"] {
+        background #c90;
+        color: black;
+      }
+
+      .guide {
+        border: 1px solid rgb(52,178,51);
+        transition: all 0.3s ease;
+      }
+
+      .guide a {
+        color: #111;
+        text-decoration: underline;
+      }
+
+      .guide:hover {
+        transform: scale(1.03);
+      }
+
+      .dark-mode .guide a {
+        color: #fff;
+      }
+
+      hr {
+        margin: 64px auto;
+      }
+
+      ul {
+        color: #388278;
+        margin: 0px;
+        text-align: left;
+        position: relative;
+        left: -10px;
+      }
+
+      .accept-invite {
+        background-color: rgba(204,153,0,0.6);
+        padding: 4px;
+        border: 1px solid #c90;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        margin-left: 4px;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .accept-invite:hover {
+        transform: scale(1.05);
+      }
+
+      .light-mode {
+        color: #212529;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDQwIiBoZWlnaHQ9Ijc3MCIgZmlsbD0ibm9uZSI+PGcgY2xpcC1wYXRoPSJ1cmwoI2EpIiBvcGFjaXR5PSIuNiI+PGcgZmlsdGVyPSJ1cmwoI2IpIiBvcGFjaXR5PSIuMTUiPjxlbGxpcHNlIGN4PSIyNjAuNjM4IiBjeT0iMjQzLjU3OSIgZmlsbD0iI0ZGQjYxOSIgcng9IjI2MC42MzgiIHJ5PSIyNDMuNTc5IiB0cmFuc2Zvcm09Im1hdHJpeCgtMSAwIDAgMSAxNjExLjY0IDE1MCkiLz48L2c+PGcgZmlsdGVyPSJ1cmwoI2MpIiBvcGFjaXR5PSIuMTUiPjxlbGxpcHNlIGN4PSIyNjAuNjM4IiBjeT0iMjQzLjU3OSIgZmlsbD0iIzAxRDJBMSIgcng9IjI2MC42MzgiIHJ5PSIyNDMuNTc5IiB0cmFuc2Zvcm09Im1hdHJpeCgtMSAwIDAgMSA2NjUuMjc1IDE1MCkiLz48L2c+PGcgZmlsdGVyPSJ1cmwoI2QpIiBvcGFjaXR5PSIuMSI+PGVsbGlwc2UgY3g9IjE5My4yMzEiIGN5PSIxODAuNTg1IiBmaWxsPSIjMEQ1OUVGIiByeD0iMTkzLjIzMSIgcnk9IjE4MC41ODUiIHRyYW5zZm9ybT0ibWF0cml4KC0xIDAgMCAxIDIxNC40NjIgMjEzKSIvPjwvZz48ZyBmaWx0ZXI9InVybCgjZSkiIG9wYWNpdHk9Ii4xNSI+PGVsbGlwc2UgY3g9IjI2MC42MzgiIGN5PSIyNDMuNTc5IiBmaWxsPSIjRkYxMTgxIiByeD0iMjYwLjYzOCIgcnk9IjI0My41NzkiIHRyYW5zZm9ybT0ibWF0cml4KC0xIDAgMCAxIDEwMjkuMjcgMTUwKSIvPjwvZz48L2c+PGRlZnM+PGZpbHRlciBpZD0iYiIgd2lkdGg9IjEwNjAuNTIiIGhlaWdodD0iMTAyNi40MSIgeD0iODIwLjczOCIgeT0iLTExOS42MjUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgcmVzdWx0PSJzaGFwZSIvPjxmZUdhdXNzaWFuQmx1ciByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfNTMyXzYwNDAiIHN0ZERldmlhdGlvbj0iMTM0LjgxMiIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9ImMiIHdpZHRoPSIxMDYwLjUzIiBoZWlnaHQ9IjEwMjYuNDEiIHg9Ii0xMjUuNjI1IiB5PSItMTE5LjYyNSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQmxlbmQgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+PGZlR2F1c3NpYW5CbHVyIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl81MzJfNjA0MCIgc3RkRGV2aWF0aW9uPSIxMzQuODEyIi8+PC9maWx0ZXI+PGZpbHRlciBpZD0iZCIgd2lkdGg9IjkyNS43MTIiIGhlaWdodD0iOTAwLjQxOSIgeD0iLTQ0MS42MjUiIHk9Ii01Ni42MjUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgcmVzdWx0PSJzaGFwZSIvPjxmZUdhdXNzaWFuQmx1ciByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfNTMyXzYwNDAiIHN0ZERldmlhdGlvbj0iMTM0LjgxMiIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9ImUiIHdpZHRoPSIxMDYwLjUyIiBoZWlnaHQ9IjEwMjYuNDEiIHg9IjIzOC4zNzUiIHk9Ii0xMTkuNjI1IiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzUzMl82MDQwIiBzdGREZXZpYXRpb249IjEzNC44MTIiLz48L2ZpbHRlcj48Y2xpcFBhdGggaWQ9ImEiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTQ0MHY3NzBIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+      .dark-mode {
+        background-color: #1a1c1f;
+        color: #aaa;
+      }
+
+      .theme-transitions {
+        transition: background-color 0.5s ease, color 0.5s ease;
+      }
+
+      .publish-text {
+        margin-left: 8px;
+      }
+
+      .pro-member {
+        margin-top: 12px;
+        background: black;
+        border: 2px solid #c90;
+        border-radius: 20px;
+        padding: 4px 10px;
+        color: #c90;
+        transition: transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pro-member:hover {
+        transform: scale(1.05);
+      }
+
+      .pro-member:active {
+        transform: scale(0.95);
+      }
+
+      .pro-member::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(204, 153, 0, 0.7),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .pro-member:hover::before {
+        left: 100%;
+      }
+
+      .pro-member:active::before {
+        left: -100%;
+        transition: 0s;
+      }
+
+      .pro-message {
+        display: block;
+        gap: 6px;
+        color: #fff;
+      }
+
+      .swal2-popup {
+        opacity: 0.9;
+      }
+
+      .swal2-modern {
+        font-family: 'Lato', sans-serif !important;
+        border-radius: 24px !important;
+        padding: 1em !important;
+        max-width: 90% !important;
+      }
+
+      .swal2-html-container {
+        font-weight: 300 !important;
+      }
+      .swal2-html-container ul li {
+        margin: 6px 0;
+      }
+      .swal2-title-modern {
+        font-size: 1.3em !important;
+        font-weight: 300 !important;
+        color: #388278 !important;
+      }
+      .swal2-confirm, .swal2-cancel {
+        font-family: 'Lato', sans-serif !important;
+        font-weight: 300 !important;
+        border-radius: 8px !important;
+        padding: 12px 24px !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .swal2-confirm:hover {
+        background: #2d6b62 !important;
+        box-shadow: 0 0 15px rgba(56, 130, 120, 0.3) !important;
+      }
+
+      .swal2-close-button {
+        color: #388278 !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .swal2-close-button:hover {
+        color: #2d6b62 !important;
+        transform: scale(1.1) !important;
+      }
+
+      .swal2-footer {
+        border-top: 1px solid #388278;
+        padding: 1em;
+      }
+
+      .swal2-icon {
+        border: none;
+      }
+
+      .your-rewards {
+        cursor: pointer;
+      }
+
+      .all-articles-folder {
+        border: 1px solid #388278 !important;
+        background-color: rgba(56, 130, 120, 0.3) !important;
+      }
+
+      .all-articles-folder:hover {
+        background-color: rgba(56, 130, 120, 0.4) !important;
+        box-shadow: 0 4px 8px rgba(56, 130, 120, 0.9) !important;
+      }
+
+
+      .external-share {
+        color: #fff;
+        font-size: 26px;
+        margin-right: 5%;
+        display: inline-block;
+        animation: bounce 2s infinite;
+      }
+
+      .ithy-rank {
+        letter-spacing: -18px;
+        font-family: Arial;
+        color: #fff;
+        font-size: 26px;
+        margin-left: 30px;
+        display: inline-block;
+      }
+
+      .subscribe-box {
+        display: flex;
+        max-width: 220px;
+        align-items: center;
+        width: 100%;
+        background: linear-gradient(90deg, rgba(204, 153, 0, 0.7), rgba(204, 153, 0, 0.9) 90%);
+        border-radius: 50px;
+        margin: 6px auto 10px auto;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        padding: 10px 0px;
+        justify-content: center;
+        border: 2px solid #c90;
+        position: relative;
+        transition: transform 0.3s ease, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(204, 153, 0, 0.5); /* Add a glow effect */
+      }
+      .subscribe-box:hover {
+        transform: scale(1.1);
+      }
+
+      .model-name {
+        color: #cc9900;
+      }
+
+      .model-name:hover {
+        color: white;
+      }
+
+      .tier-container .model-name {
+        color: white;
+      }
+
+      .tier-container .model-name:hover {
+        color: #388278;
+      }
+
+      .subscribe-box-container {
+        font-size: 14px;
+        margin: 18px auto;
+        line-height: 22px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        background: linear-gradient(to bottom left, rgba(64,64,64,0.9), black);
+        box-shadow: 0 0 10px rgba(204, 153, 0, 0.5);
+        border-top-width: 12px !important;
+      }
+
+      .subscribe-box-title {
+        background: linear-gradient(90deg, #c90, #ff0, #c90, #ff0, #c90);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 5s linear infinite;
+        display: inline-block;
+      }
+
+      /* Pricing tabs styling */
+      .pricing-tabs {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+
+      .pricing-tab {
+        padding: 8px 30px;
+        border: 1px solid #c90;
+        background: transparent;
+        color: #c90;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
+      }
+
+      .pricing-tab:hover {
+        opacity: 0.7;
+      }
+
+      .pricing-tab:first-child {
+        border-radius: 15px 0 0 15px;
+      }
+
+      .pricing-tab:last-child {
+        border-radius: 0 15px 15px 0;
+      }
+
+      .pricing-tab.active {
+        background: #c90;
+        color: black;
+      }
+
+      .plan-details {
+        display: none;
+      }
+
+      .plan-details.active {
+        display: block;
+      }
+
+      .discount-bubble {
+        padding: 2px 8px;
+        background-color: #3a6;
+        border-radius: 8px;
+        font-size: 12px;
+        margin-left: 5px;
+        color: white;
+        display: inline-block;
+      }
+
+      @keyframes shimmer {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      .subscribe-box-container ul {
+        padding-left: 20px;
+        padding-bottom: 4px;
+        padding-top: 8px;
+      }
+
+      .subscribe-box-container ul li {
+        position: relative;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 2px 0;
+      }
+
+      .tier-container ul {
+        padding-left: 20px;
+        padding-bottom: 4px;
+        color: #ccc;
+        padding-top: 20px;
+      }
+
+      .tier-container ul li {
+        position: relative;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 2px 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 5vh 14px 14px 14px;
+        box-sizing: border-box;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .img-container {
+        display: block;
+        margin: 10px auto;
+        width: 128px;
+        height: auto;
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+      .img-container:hover {
+        transform: scale(1.1);
+      }
+
+
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        font-weight: 400;
+      }
+
+      p {
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      @media screen and (max-width: 600px) {
+        .container {
+          padding: 30px 15px;
+        }
+        hr {
+          max-width: 90%;
+        }
+        .rename-folder-button {
+          display: none !important;
+        }
+
+      }
+
+      .theme-toggle {
+        position: fixed;
+        bottom: 78px;
+        right: 20px;
+        background: #ccc;
+        opacity: 1;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 999;
+        font-size: 25px;
+      }
+
+      .theme-toggle.rotate {
+        animation: rotateAnimation 1s forwards;
+      }
+
+      @keyframes rotateAnimation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(720deg);
+        }
+      }
+
+      .article-table {
+        margin-top: 20px;
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        color: white;
+        font-size: 1.1em;
+      }
+
+      .article-table tr:first-child td {
+        border-top: 0px;
+      }
+
+      .article-table tr:last-child td {
+        border-bottom: 0px;
+      }
+
+      .article-table td {
+        word-wrap: break-word;
+        background-color: inherit;
+      }
+
+      .article-links-container {
+        margin: 32px 0px 0px 0px;
+        width: 100%;
+        max-width: 600px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0 !important;
+      }
+
+      .folder-articles-container table.dataTable thead th {
+        background-color: rgba(204, 153, 0, 0.6) !important;
+        text-align: center !important;
+        color: white !important;
+      }
+
+      .article-links-container table.dataTable thead th {
+        background-color: rgba(56, 130, 120, 0.6) !important;
+        text-align: center !important;
+        color: white !important;
+      }
+
+      /* Add new rule for folder headers */
+      .article-links-container table.dataTable.folder-view thead th {
+        background-color: rgba(204, 153, 0, 0.6) !important;
+      }
+
+      table.dataTable {
+        width: 100% !important;
+        margin: 30px 0 !important;
+        border-collapse: separate !important;
+        border: 2px solid rgba(56, 130, 120, 0.3) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        text-align: center !important;
+        table-layout: fixed !important;
+      }
+
+      table.dataTable tbody tr {
+        background-color: rgba(56, 130, 120, 0.2) !important;
+        color: #111;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .dark-mode table.dataTable tbody tr {
+        background-color: rgba(18, 55, 50, 0.3) !important;
+        color: #ddd !important;
+      }
+
+      table.dataTable thead th {
+        background-color: rgba(56, 130, 120, 0.6) !important;
+        text-align: center !important;
+        font-size: 1.3em;
+      }
+
+      table.dataTable td,
+      table.dataTable th {
+        border: 2px solid rgba(56, 130, 120, 0.2) !important;
+        text-align: center !important;
+      }
+
+      .article-table tr:hover {
+        background-color: rgba(56, 130, 120, 0.3) !important;
+        cursor: pointer;
+      }
+
+      .dark-mode .article-table tr:hover {
+        background-color: rgba(56, 130, 120, 0.5) !important;
+      }
+
+      .dataTables_wrapper {
+        width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .dataTables_scrollBody,
+      .dataTables_scrollHead {
+        width: 100% !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Add the shimmer effect */
+      .subscribe-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      /* Add hover animation for the shimmer */
+      .subscribe-box:hover::before {
+        left: 100%;
+      }
+
+      /* Add the bounce keyframes animation */
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-5px);
+        }
+        60% {
+          transform: translateY(-3px);
+        }
+      }
+
+      .containers-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .tier-container, .subscribe-box-container {
+        width: 47%;
+        font-size: 14px;
+        margin: 0px;
+        line-height: 22px;
+        border: 3px solid #c90;
+        padding: 10px;
+        border-radius: 30px;
+        box-shadow: 0 0 10px rgba(56, 130, 120, 0.5);
+        height: 410px;
+        box-sizing: border-box;
+      }
+
+      .tier-container {
+        border-color: #C0C0C0 !important;
+        background: #123732;
+        border-top-width: 12px !important;
+      }
+
+      .tier-box {
+        display: flex;
+        max-width: 220px;
+        align-items: center;
+        width: 100%;
+        background: linear-gradient(90deg, #C0C0C0B3, #C0C0C0E6 90%);
+        border-radius: 10px;
+        margin: 6px auto 10px auto;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        padding: 10px 0px;
+        justify-content: center;
+        border: 2px solid #C0C0C0;
+        position: relative;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 0 10px #C0C0C080;
+      }
+
+      .tier-box:hover {
+        transform: scale(1.1);
+      }
+
+      .tier-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .tier-box:hover::before {
+        left: 100%;
+      }
+
+      .tier-title {
+        background: linear-gradient(90deg, #C0C0C0, #FFFFFF, #C0C0C0, #FFFFFF, #C0C0C0);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 5s linear infinite;
+        display: inline-block;
+      }
+
+      @media screen and (max-width: 700px) {
+        .containers-wrapper {
+          flex-direction: column;
+          align-items: center;
+        }
+        .tier-container {
+          width: 320px;
+        }
+        .subscribe-box-container {
+          width: 320px;
+        }
+        .limits-container {
+          flex-direction: column;
+        }
+        .divider {
+          display: none;
+        }
+      }
+
+      @media screen and (min-width: 801px) {
+        .containers-wrapper {
+          flex-direction: row;
+          justify-content: center;
+        }
+      }
+
+      .limits-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .divider {
+        margin: 0 14px;
+        color: #666;
+      }
+
+      .return-to-search-button {
+        display: flex;
+        align-items: center;
+        width: 100px;
+        background: linear-gradient(90deg, rgba(56, 130, 120, 0.3), rgba(56, 130, 120, 0.6) 90%);
+        border-radius: 50px;
+        color: rgba(256,256,256,0.8);
+        text-align: center;
+        font-size: 14px;
+        padding: 8px 0px;
+        justify-content: center;
+        border: 2px solid rgba(56, 130, 120, 0.6);
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 1000;
+        text-decoration: none;
+      }
+
+      .return-to-search-button:hover {
+        transform: scale(1.1);
+      }
+
+      .return-to-search-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .return-to-search-button:hover::before {
+        left: 100%;
+      }
+
+      .folders-container {
+        width: 100%;
+        text-align: center;
+      }
+
+      .create-folder-button {
+        display: flex;
+        align-items: center;
+        width: 200px;
+        background: linear-gradient(90deg, rgba(204, 153, 0, 0.7), rgba(204, 153, 0, 0.9) 90%);
+        border-radius: 50px;
+        margin: 24px auto;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        padding: 10px 0px;
+        justify-content: center;
+        border: 2px solid #c90;
+        position: relative;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(204, 153, 0, 0.5);
+      }
+
+      .create-folder-button:hover {
+        transform: scale(1.1);
+      }
+
+      .create-folder-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .create-folder-button:hover::before {
+        left: 100%;
+      }
+
+      .folder-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .folder-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+        padding: 12px;
+        border: 1px solid #c90;
+        border-radius: 8px;
+        background-color: rgba(204, 153, 0, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin: 0 auto;
+        color: #222;
+      }
+
+      .dark-mode .folder-item {
+        background-color: rgba(204, 153, 0, 0.2);
+        color: #ddd;
+      }
+
+      .folder-item:hover {
+        background-color: rgba(204, 153, 0, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(204, 153, 0, 0.8);
+      }
+
+      .dark-mode .folder-item:hover {
+        background-color: rgba(204, 153, 0, 0.3);
+      }
+
+      .folder-item.active {
+        background-color: rgba(204, 153, 0, 0.6);
+        border: 3px solid #c90;
+      }
+
+      .dark-mode .folder-item.active {
+        background-color: rgba(204, 153, 0, 0.4);
+      }
+
+      .folder-name {
+        flex-grow: 1;
+        text-align: left;
+        font-size: 16px;
+      }
+
+      .folder-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .rename-folder-button, .delete-folder-button {
+        background: none;
+        border: 1px solid #c90;
+        color: #c90;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+      }
+
+      .share-folder-button {
+        background: rgba(0, 120, 215, 0.1);
+        border: 1px solid #0078d7;
+        color:  #0078d7;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+      }
+
+      .dark-mode .share-folder-button {
+        color: white;
+        background: transparent;
+      }
+
+      .rename-folder-button:hover {
+        background-color: rgba(204, 153, 0, 0.6);
+        color: white;
+        border-color: #c90;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(204, 153, 0, 0.6);
+      }
+
+      .delete-folder-button:hover {
+        background-color: rgba(180, 60, 60, 0.3);
+        color: #b43c3c;
+        border-color: #b43c3c;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(180, 60, 60, 0.3);
+      }
+
+      .share-folder-button:hover {
+        background-color: rgba(0, 120, 215, 0.3);
+        color: #0078d7;
+        border-color: #0078d7;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 120, 215, 0.3);
+      }
+
+      .folder-articles-container {
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .no-hover {
+        cursor: not-allowed;
+      }
+
+      .article-table tr.no-hover:hover {
+        background-color: rgba(56, 130, 120, 0.2) !important;
+        cursor: not-allowed;
+      }
+
+      .article-column {
+        padding: 20px !important;
+      }
+
+      .delete-column, .add-folder-column {
+        padding: 0px !important;
+        position: relative;
+        transition: transform 0.4s ease, background-color 0.4s ease;
+      }
+
+      td.delete-column:hover {
+        background-color: rgba(255, 100, 100, 0.2) !important;
+      }
+
+      td.add-folder-column:hover {
+        background-color: rgba(204, 153, 0, 0.4) !important;
+      }
+
+      /* For dark mode, make the background slightly more visible */
+      .dark-mode td.delete-column:hover {
+        background-color: rgba(255, 100, 100, 0.6) !important;
+      }
+
+      /* For dark mode, make the gold background slightly more visible */
+      .dark-mode td.add-folder-column:hover {
+        background-color: rgba(204, 153, 0, 0.6) !important;
+      }
+
+      /* Add styles for remove-folder-column */
+      td.remove-folder-column:hover {
+        background-color: rgba(255, 100, 100, 0.2) !important;
+      }
+
+      /* For dark mode, make the background slightly more visible */
+      .dark-mode td.remove-folder-column:hover {
+        background-color: rgba(255, 100, 100, 0.6) !important;
+      }
+
+      .custom-instructions-container {
+        border-radius: 8px;
+        text-align: left;
+        width: 90%;
+      }
+
+      .custom-instructions-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .custom-instructions-container h2 {
+        font-size: 1.5em;
+        margin: 0;
+      }
+
+      .custom-instructions-container .save-instructions-button {
+        background-color: #388278;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        margin-left: 30%;
+        margin-top: 20px;
+        width: 40%;
+      }
+
+      .custom-instructions-container .save-instructions-button:hover {
+        background-color: #2d6b62;
+        transform: scale(1.05);
+      }
+
+      /* Loading overlay styles */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+      }
+
+      .loading-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .loading-gif {
+        width: 150px;
+        height: 150px;
+      }
+
+      .toggle-container {
+        margin-top: 10px;
+      }
+      
+      .toggle-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      
+      .toggle-label {
+        font-size: 16px;
+      }
+      
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+      
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+      }
+      
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+      
+      input:checked + .toggle-slider {
+        background-color: #388278;
+      }
+      
+      input:checked + .toggle-slider:before {
+        transform: translateX(26px);
+      }
+    </style>
+    <script>
+      // Function to load theme from localStorage or set default
+      function loadThemeFromStorage() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          document.body.classList.add(savedTheme);
+        } else {
+          const theme = 'dark-mode';
+          document.body.classList.add(theme);
+          localStorage.setItem('theme', theme);
+        }
+        setTimeout(() => {
+          document.body.classList.add('theme-transitions');
+        }, 100);
+      }
+
+      function toggleTheme() {
+        const themeToggleButton = document.querySelector('.theme-toggle');
+        themeToggleButton.classList.add('rotate');
+
+        setTimeout(() => {
+          themeToggleButton.style.transform = 'rotate(360deg)';
+          themeToggleButton.classList.remove('rotate');
+        }, 1000); // 1000ms equals 1 second for the rotation
+
+        if (document.body.classList.contains('light-mode')) {
+          document.body.classList.remove('light-mode');
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('theme', 'dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.body.classList.add('light-mode');
+          localStorage.setItem('theme', 'light-mode');
+        }
+      }
+
+      function createArticleLinks() {
+        const articleHistory = [{"articleId": "2y1r317766", "epoch": 1748516072, "full_url": "InRheC1jb21wYXJpc29uLWJ1c2luZXNzLWVudGl0eS0yeTFyMzE3NzY2Ig.aDkpGw.aGZx7PAwVGvaIuZUwBt4tt9rLDY", "question": "\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a\u0e20\u0e32\u0e29\u0e35\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e18\u0e23\u0e23\u0e21\u0e14\u0e32\u0e41\u0e25\u0e30\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financ"}, {"articleId": "foj5o3w6ub", "epoch": 1748511389, "full_url": "ImNvcnBvcmF0ZS1pbmNvbWUtdGF4LXRoYWlsYW5kLWZvajVvM3c2dWIi.aDkpGw.NqUOSSlD_nDLaZQicUPrUIaiTaU", "question": "\u0e2d\u0e31\u0e15\u0e23\u0e32\u0e20\u0e32\u0e29\u0e35\u0e40\u0e07\u0e34\u0e19\u0e44\u0e14\u0e49\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial an"}, {"articleId": "e5nnrue7ov", "epoch": 1748506531, "full_url": "ImFpLWxhdy1hY2NvdW50aW5nLWV0aGljcy1lNW5ucnVlN292Ig.aDkpGw.S9oD2P1uUV5iFRRppuDf9z0RfRo", "question": "\u0e1c\u0e25\u0e01\u0e23\u0e30\u0e17\u0e1a\u0e02\u0e2d\u0e07 AI \u0e15\u0e48\u0e2d\u0e01\u0e0e\u0e2b\u0e21\u0e32\u0e22\u0e41\u0e25\u0e30\u0e08\u0e23\u0e34\u0e22\u0e18\u0e23\u0e23\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven finan"}, {"articleId": "yrm7i30516", "epoch": 1748506414, "full_url": "ImFjY291bnRhbnQtcHJlcGFyYXRpb24tYWktZXJhLXlybTdpMzA1MTYi.aDkpGw.u4YgLI3agBTjtgRRF9KaRu949f8", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e19\u0e31\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e43\u0e19\u0e22\u0e38\u0e04 AI - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial "}, {"articleId": "178m06qpi6", "epoch": 1748506279, "full_url": "ImFpLW1hY2hpbmUtbGVhcm5pbmctYWNjb3VudGluZy0yMDI1LTE3OG0wNnFwaTYi.aDkpGw.c-jtT9TLXO1ULh8h32Af4BhTRbo", "question": "\u0e40\u0e17\u0e04\u0e42\u0e19\u0e42\u0e25\u0e22\u0e35 AI \u0e41\u0e25\u0e30 Machine Learning \u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and "}, {"articleId": "2y4me4rix8", "epoch": 1748505660, "full_url": "ImFpLW1hY2hpbmUtbGVhcm5pbmctYWNjb3VudGluZy1mdXR1cmUtMnk0bWU0cml4OCI.aDkpGw.-FTTLSIwRZ2mNH-uLMxj9CUs_DY", "question": "AI \u0e41\u0e25\u0e30 Machine Learning \u0e43\u0e19\u0e07\u0e32\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial "}, {"articleId": "a2z4h3kjmq", "epoch": 1748505470, "full_url": "ImRpZ2l0YWwtdHJhbnNmb3JtYXRpb24tYWNjb3VudGluZy10aGFpbGFuZC1hMno0aDNram1xIg.aDkpGw.ZOG3fIeu1hjNBd5_p9ft_FxAMg0", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Digital Transformation \u0e43\u0e19\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and"}, {"articleId": "s53isie940", "epoch": 1748505277, "full_url": "Im9ubGluZS1hY2NvdW50aW5nLWUtdGF4LWludm9pY2UtY29ubmVjdGlvbi1zNTNpc2llOTQwIg.aDkpGw.LReFFVOBd3JWNHxGmlY1Pn0o_mU", "question": "\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e23\u0e30\u0e1a\u0e1a\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e01\u0e31\u0e1a e-Tax Invoice - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven"}, {"articleId": "726dcq7zb5", "epoch": 1748505018, "full_url": "ImUtdGF4LWludm9pY2UtcmVnaXN0cmF0aW9uLXRoYWlsYW5kLTcyNmRjcTd6YjUi.aDkpGw.AjKGQCqx3r3uAuuT03PvDKI3HR0", "question": "\u0e27\u0e34\u0e18\u0e35\u0e01\u0e32\u0e23\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e41\u0e25\u0e30\u0e02\u0e2d\u0e2d\u0e19\u0e38\u0e21\u0e31\u0e15\u0e34\u0e43\u0e0a\u0e49 e-Tax Invoice \u0e01\u0e31\u0e1a\u0e01\u0e23\u0e21\u0e2a\u0e23\u0e23\u0e1e\u0e32\u0e01\u0e23 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natu"}, {"articleId": "8399nflw89", "epoch": 1748504783, "full_url": "ImUtdGF4LWludm9pY2UtYnVzaW5lc3MtZ3VpZGUtODM5OW5mbHc4OSI.aDkpGw.alKrzm6nbCMTAWGw4XlImy-Cxvw", "question": "e-Tax Invoice \u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e19\u0e33\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e43\u0e19\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conversational styl"}, {"articleId": "26m7tbx237", "epoch": 1748504302, "full_url": "InRoYWktdmF0LXJlZ2lzdHJhdGlvbi1ndWlkZS0yNm03dGJ4MjM3Ig.aDkpGw.iIBsuFNXUUsh7qbbJz4ZQFBX_Io", "question": "\u0e20\u0e32\u0e29\u0e35\u0e21\u0e39\u0e25\u0e04\u0e48\u0e32\u0e40\u0e1e\u0e34\u0e48\u0e21 (VAT) \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 \u0e41\u0e25\u0e30\u0e43\u0e04\u0e23\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e14\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conve"}, {"articleId": "gu805w1fbq", "epoch": 1748504167, "full_url": "ImFkdmFudGFnZXMtZGlzYWR2YW50YWdlcy1zZXBhcmF0ZS1hY2NvdW50cy1ndTgwNXcxZmJxIg.aDkpGw.9d4OH2p59oGQV0s8I0HQakpMVC0", "question": "\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e02\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e41\u0e22\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e01\u0e31\u0e1a\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conversation"}, {"articleId": "4r35nia875", "epoch": 1748503080, "full_url": "InRoYWktb25saW5lLWJ1c2luZXNzLXRheC00cjM1bmlhODc1Ig.aDkpGw.ibKI0e_TM5eZp6TOFtjAfmLPxE0", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e37\u0e48\u0e19\u0e20\u0e32\u0e29\u0e35\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e18\u0e23\u0e23\u0e21\u0e14\u0e32 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural,"}, {"articleId": "4nd38ggm52", "epoch": 1748425853, "full_url": "InBkcGEtZWNvbW1lcmNlLXRoYWlsYW5kLWNvbXBsaWFuY2UtNG5kMzhnZ201MiI.aDkpGw.tC_PyjIt817nwIVvN1ZOuxCwJ2w", "question": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e23\u0e23\u0e30\u0e27\u0e31\u0e07\u0e14\u0e49\u0e32\u0e19PDPA\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1c\u0e39\u0e49\u0e1b\u0e23\u0e30\u0e01\u0e2d\u0e1a\u0e01\u0e32\u0e23E-commerce - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, convers"}, {"articleId": "2b6b04wert", "epoch": 1748401509, "full_url": "Im9ubGluZS1idXNpbmVzcy1yZWdpc3RyYXRpb24tZ3VpZGUtMmI2YjA0d2VydCI.aDkpGw.3fBW7iVtq1ghgbcm0V4-sHpFh20", "question": "\u0e44\u0e02\u0e02\u0e49\u0e2d\u0e2a\u0e07\u0e2a\u0e31\u0e22 \u0e01\u0e32\u0e23\u0e08\u0e14\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e1e\u0e32\u0e13\u0e34\u0e0a\u0e22\u0e4c \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 \u0e02\u0e32\u0e22\u0e02\u0e2d\u0e07\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e14\u0e44\u0e2b\u0e21? - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a n"}, {"articleId": "591h6zio5g", "epoch": 1748399293, "full_url": "ImtwaS1va3ItZGlmZmVyZW5jZXMtZW1wbG95ZWUtaW1wYWN0LTU5MWg2emlvNWci.aDkpGw.byfP1uFHUyV-hDLD0WcnjuInMDQ", "question": "\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 KPI \u0e01\u0e31\u0e1a OKR \u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e41\u0e15\u0e01\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23\u0e04\u0e23\u0e31\u0e1a \u0e43\u0e19\u0e21\u0e38\u0e21\u0e02\u0e2d\u0e07\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23"}, {"articleId": "v09553l69j", "epoch": 1748350591, "full_url": "InYwOTU1M2w2OWoi.aDkpGw.-XIDLa6JsNZ9OY4E1MlpZ54tYPc", "question": "\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 KPI \u0e01\u0e31\u0e1a OKR \u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e41\u0e15\u0e01\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23\u0e04\u0e23\u0e31\u0e1a \u0e43\u0e19\u0e21\u0e38\u0e21\u0e02\u0e2d\u0e07\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23"}];
+        if (articleHistory != null) {
+          const container = document.querySelector('.article-links-container');
+          container.innerHTML = ''; // Clear existing content
+          
+          // Ensure articleData is populated
+          populateArticleData();
+          
+          const table = document.createElement('table');
+          table.className = 'article-table';
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+          
+          // Create article header cell
+          const headerCell = document.createElement('th');
+          headerCell.innerHTML = '<i class="fa-solid fa-layer-group" style="margin-right: 8px;"></i> Articles';
+          headerCell.style.backgroundColor = 'rgba(56, 130, 120, 0.6)';
+          headerRow.appendChild(headerCell);
+          
+          // Create add to folder header cell
+          const addFolderHeaderCell = document.createElement('th');
+          addFolderHeaderCell.textContent = '';
+          addFolderHeaderCell.style.backgroundColor = 'rgba(56, 130, 120, 0.6)';
+          headerRow.appendChild(addFolderHeaderCell);
+
+          // Create delete header cell
+          const deleteHeaderCell = document.createElement('th');
+          deleteHeaderCell.textContent = '';
+          deleteHeaderCell.style.backgroundColor = 'rgba(56, 130, 120, 0.6)';
+          headerRow.appendChild(deleteHeaderCell);
+          
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+          for (const o of articleHistory) {
+            const article_id = o.full_url;
+            const question = typeof o.question === 'string' ? o.question : String(o.question);
+            const row = document.createElement('tr');
+            
+            // Create article cell
+            const cell = document.createElement('td');
+            const questionText = question.length > 200 ? question.substring(0, 200) + "..." : question;
+            cell.textContent = questionText;
+            cell.onclick = () => {
+              window.open("/question/" + article_id, "_blank");
+            };
+            cell.style.cursor = 'pointer';
+            row.appendChild(cell);
+
+            // Create add to folder cell
+            const addFolderCell = document.createElement('td');
+            addFolderCell.innerHTML = '<i class="fa-solid fa-folder-plus" style="opacity:0.3;"></i>';
+            addFolderCell.style.cursor = 'pointer';
+            addFolderCell.style.textAlign = 'center';
+            addFolderCell.title = 'Add to folder';
+            addFolderCell.onclick = (e) => {
+              e.stopPropagation(); // Prevent row click event
+              addToFolder(article_id);
+            };
+            row.appendChild(addFolderCell);
+            
+            const deleteCell = document.createElement('td');
+            deleteCell.innerHTML = '<i class="fa-solid fa-trash" style="opacity:0.3;"></i>';
+            deleteCell.style.cursor = 'pointer';
+            deleteCell.style.textAlign = 'center';
+            deleteCell.title = 'Delete article';
+            deleteCell.onclick = (e) => {
+              e.stopPropagation(); // Prevent row click event
+              deleteArticle(article_id, row);
+            };
+            row.appendChild(deleteCell);
+            
+            tbody.appendChild(row);
+          }
+          table.appendChild(tbody);
+          container.appendChild(table);
+
+          // Initialize DataTable
+          if ($.fn.DataTable.isDataTable(table)) {
+            $(table).DataTable().destroy();
+          }
+          new DataTable(table, {
+            responsive: true,
+            paging: true,
+            searching: true,
+            info: true,
+            pageLength: 10,
+            order: [],
+            columnDefs: [
+              { orderable: false, targets: 1, className: 'add-folder-column' },
+              { orderable: false, targets: 2, className: 'delete-column' },
+              { width: '50px', targets: 1 },
+              { width: '50px', targets: 2 },
+              { targets: 0, className: 'article-column' } // Add class to article column
+            ]
+          });
+        }
+      }
+      
+      // Function to delete an article
+      function deleteArticle(articleId, tableRow) {
+        if (confirm('Permanently delete this article?')) {
+          fetch('/delete_article?article_id=' + articleId, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+          .then(response => {
+            if (response.ok) {
+              // Remove the row from the DataTable
+              const table = $('.article-table').DataTable();
+              table.row(tableRow).remove().draw(false);
+            } else {
+              alert('Failed to delete article');
+            }
+          })
+          .catch(error => {
+            alert('Failed to delete article');
+          });
+        }
+      }
+
+      // Function to add an article to a folder
+      async function addToFolder(article_id) {
+        const user_data = await (await fetch('/get_user_data')).json();
+        const folders = user_data.folders || {};
+
+        if (Object.keys(folders).length === 0) {
+          createFolder(article_id);
+          return;
+        }
+
+        const folderOptions = {};
+        for (const folder_uuid in folders) {
+          folderOptions[folder_uuid] = folders[folder_uuid].folder_name;
+        }
+        
+        // Add "Create a folder" option at the end
+        folderOptions['create_new_folder'] = '＋ Create new folder';
+
+        const { value: selectedFolderUuid } = await Swal.fire({
+          title: 'Select folder',
+          input: 'select',
+          inputOptions: folderOptions,
+          inputPlaceholder: 'Select a folder',
+          showCancelButton: true,
+          confirmButtonText: 'Add',
+          cancelButtonText: 'Cancel',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'You need to select a folder!'
+            }
+          },
+          confirmButtonColor: '#388278',
+          backdrop: 'rgba(0, 0, 0, 0.8)',
+          customClass: {
+              popup: 'swal2-modern',
+              title: 'swal2-title-modern'
+          }
+        });
+
+        if (selectedFolderUuid) {
+          // If "Create a folder" option was selected
+          if (selectedFolderUuid === 'create_new_folder') {
+            createFolder(article_id);
+            return;
+          }
+          
+          const response = await fetch('/add_to_folder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              folder_uuid: selectedFolderUuid, 
+              article_full_url: article_id
+            })
+          });
+          if (response.ok) {
+              // Update the userFolders object to include this article
+              if (userFolders[selectedFolderUuid]) {
+                // Only add if it's not already in the folder
+                if (!userFolders[selectedFolderUuid].folder_articles.includes(article_id)) {
+                  userFolders[selectedFolderUuid].folder_articles.push(article_id);
+                }
+              }
+          } else if (response.status == 409) {
+              Swal.fire({
+                title: 'Already exists',
+                html: 'Article is already in this folder',
+                icon: 'info',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#388278',
+                backdrop: 'rgba(0, 0, 0, 0.8)',
+                customClass: {
+                    popup: 'swal2-modern',
+                    title: 'swal2-title-modern'
+                }
+              });
+          } else if (response.status == 400) {
+              const errorData = await response.json();
+              if (errorData.error && errorData.error.includes('Folder size limit')) {
+                Swal.fire({
+                  title: 'Folder limit reached',
+                  html: 'This folder has reached the maximum limit of 50 items',
+                  icon: 'warning',
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#388278',
+                  backdrop: 'rgba(0, 0, 0, 0.8)',
+                  customClass: {
+                      popup: 'swal2-modern',
+                      title: 'swal2-title-modern'
+                  }
+                });
+              } else {
+                Swal.fire('Error', errorData.error || 'Failed to add to folder', 'error');
+              }
+          } else {
+              const errorData = await response.json();
+              Swal.fire('Error', errorData.error || 'Failed to add to folder', 'error');
+          }
+        }
+      }
+
+      // Call this function on DOMContentLoaded to set initial theme and create articles table
+      document.addEventListener('DOMContentLoaded', function() {
+        // Create loading overlay element
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = '<img src="https://storage.googleapis.com/e-object-409003.firebasestorage.app/dots.gif" alt="Loading..." class="loading-gif">';
+        document.body.appendChild(loadingOverlay);
+        
+        // Function to show loading overlay
+        window.showLoadingOverlay = function() {
+          loadingOverlay.classList.add('active');
+        };
+        
+        // Function to hide loading overlay
+        window.hideLoadingOverlay = function() {
+          loadingOverlay.classList.remove('active');
+        };
+        
+        // Update publish text based on screen width
+        function updatePublishText() {
+          const publishTextElements = Array.from(document.getElementsByClassName('publish-text'));
+          const screenWidth = window.innerWidth;
+          publishTextElements.forEach(element => {
+            if (screenWidth > 600) {
+              element.style.display = 'block';
+            } else {
+              element.style.display = 'none';
+            }
+          });
+        }
+
+        // Hide loading overlay when page loads or when navigating back
+        hideLoadingOverlay();
+        
+        // Add event listener for page show (triggered when navigating back)
+        window.addEventListener('pageshow', function(event) {
+          // The persisted property is true if the page is loaded from the browser's cache
+          if (event.persisted) {
+            hideLoadingOverlay();
+          }
+        });
+        
+        // Add event listener for beforeunload to handle cases where navigation is cancelled
+        window.addEventListener('beforeunload', function() {
+          // Set a timeout to hide the overlay if navigation doesn't occur
+          setTimeout(hideLoadingOverlay, 1000);
+        });
+        
+        const sessionCookie = document.cookie.split('; ').find(row => row.startsWith('session='));
+        if (sessionCookie) {
+          const sessionValue = decodeURIComponent(sessionCookie.split('=')[1]);
+          localStorage.setItem('session', sessionValue);
+        }
+        const localSession = localStorage.getItem('session');
+        if (localSession) {
+          document.cookie = `session=${encodeURIComponent(localSession)}; path=/; max-age=31536000`; // 1 year expiry
+        }
+
+        loadThemeFromStorage();
+
+        // Add the theme toggle button
+        const themeToggleButton = document.createElement('button');
+        themeToggleButton.className = 'theme-toggle';
+        themeToggleButton.innerHTML = '<span style="color: orange;"><i class="fas fa-sun"></i></span>';
+        themeToggleButton.onclick = toggleTheme;
+        document.body.appendChild(themeToggleButton);
+
+        // Set the selected chat provider if it exists
+        const chatProvider = 'ChatGPT';
+        const chatProviderSelect = document.getElementById('chat-provider');
+        
+        if (chatProvider) {
+          for (let i = 0; i < chatProviderSelect.options.length; i++) {
+            if (chatProviderSelect.options[i].value === chatProvider) {
+              chatProviderSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        
+        // Show warning when chat provider changes
+        chatProviderSelect.addEventListener('change', function() {
+          document.getElementById('provider-unsaved-warning').style.visibility = 'visible';
+        });
+        populateArticleData();
+        
+        createArticleLinks();
+        loadFolders();
+        document.querySelector('.create-folder-button').addEventListener('click', () => createFolder(null));
+
+        // Add character counter functionality for custom instructions
+        const customInstructionsTextarea = document.getElementById('custom-instructions');
+        
+        // Show warning when custom instructions changes
+        customInstructionsTextarea.addEventListener('input', function() {
+          document.getElementById('instructions-unsaved-warning').style.visibility = 'visible';
+        });
+
+        document.getElementById('save-instructions').addEventListener('click', function() {
+          const customInstructions = document.getElementById('custom-instructions').value;
+          const chatProvider = document.getElementById('chat-provider').value;
+          
+          // Get visual preferences
+          const is_radar = document.getElementById('is_radar').checked;
+          const is_mindmap = document.getElementById('is_mindmap').checked;
+          const is_youtube = document.getElementById('is_youtube').checked;
+          const is_faq = document.getElementById('is_faq').checked;
+          const is_image = document.getElementById('is_image').checked;
+          const preferred_color = document.getElementById('preferred_color').value;
+          fetch('/custom_prompt', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+              custom_prompt: customInstructions,
+              chat_provider: chatProvider,
+              is_radar: is_radar,
+              is_mindmap: is_mindmap,
+              is_youtube: is_youtube,
+              is_faq: is_faq,
+              is_image: is_image,
+              preferred_color: preferred_color
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              // Hide the warnings after successful save
+              document.getElementById('provider-unsaved-warning').style.visibility = 'hidden';
+              document.getElementById('visuals-unsaved-warning').style.visibility = 'hidden';
+              document.getElementById('instructions-unsaved-warning').style.visibility = 'hidden';
+              
+              // Save chat provider to localStorage
+              localStorage.setItem('chat_provider', chatProvider);
+              
+              Swal.fire({
+                title: 'Saved',
+                text: 'Your settings have been saved.',
+                icon: 'success',
+                confirmButtonColor: '#388278',
+                backdrop: 'rgba(0, 0, 0, 0.8)',
+                customClass: {
+                  popup: 'swal2-modern',
+                  title: 'swal2-title-modern'
+                }
+              });
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: 'Failed to save settings. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#388278',
+                backdrop: 'rgba(0, 0, 0, 0.8)',
+                customClass: {
+                  popup: 'swal2-modern',
+                  title: 'swal2-title-modern'
+                }
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Failed to save settings. Please try again.',
+              icon: 'error',
+              confirmButtonColor: '#388278',
+              backdrop: 'rgba(0, 0, 0, 0.8)',
+              customClass: {
+                popup: 'swal2-modern',
+                title: 'swal2-title-modern'
+              }
+            });
+          });
+        });
+
+        const subscribeBox = document.querySelector('.subscribe-box');
+        const is_pro = 0;
+        const trial_started = false;
+
+        function setupProSubscriber(subtitleBoxString) {
+          const maxWidth = '200px';
+          subscribeBox.innerHTML = `Manage Membership`;
+          subscribeBox.style.maxWidth = maxWidth;
+          const subscribeBoxTitle = document.querySelector('.subscribe-box-title')
+
+          const proMessage = document.querySelector('.pro-message');
+          if (subtitleBoxString !== null) {
+            proMessage.innerHTML = subtitleBoxString;
+            proMessage.display = "flex";
+          } else {
+            proMessage.style.display = "none";
+          }
+
+          const emailText = document.querySelector('.email-text');
+          emailText.innerHTML += `<br><button class="pro-member">✧ Ithy Pro</button>`;
+
+          const limitsContainer = document.querySelector('.limits-container');
+          limitsContainer.style.display = "none";
+          
+          // Hide pricing tabs for Pro users
+          const pricingTabs = document.getElementById('pricing-tabs');
+          if (pricingTabs) {
+            pricingTabs.style.display = "none";
+          }
+
+          subscribeBox.addEventListener('click', async () => {
+            // Show loading overlay
+            showLoadingOverlay();
+            
+            const response = await fetch('/create-customer-portal-session', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+            });
+
+            const data = await response.json();
+            if (data.url) {
+              // Add a small timeout to ensure the loading overlay is visible
+              setTimeout(() => {
+                window.location.href = data.url;
+              }, 100);
+            } else {
+              // Hide loading overlay if there's an error
+              hideLoadingOverlay();
+              console.error("Error creating Customer Portal session:", data.error);
+              alert("An error occurred. Please try again.");
+            }
+          });
+        }
+
+        if (is_pro == 1) {
+          setupProSubscriber(null);
+        } else if (is_pro == 0) {
+          const proMessage = document.querySelector('.pro-message');
+          const now = new Date();
+          const emailText = document.querySelector('.email-text');
+          
+          // Function to handle pricing tab clicks
+          function handlePricingTabClick(e) {
+            const tabs = document.querySelectorAll('.pricing-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            
+            const planType = e.currentTarget.dataset.plan;
+            
+            // Change subscribe-box theme based on plan type
+            const subscribeBox = document.querySelector('.subscribe-box');
+            if (planType === 'annual') {
+              // Apply green theme for annual
+              subscribeBox.style.background = 'rgba(51, 170, 102, 0.8)';
+              subscribeBox.style.borderColor = '#3a6';
+              subscribeBox.style.boxShadow = '0 0 10px rgba(51, 170, 102, 0.5)';
+            } else {
+              // Restore original golden theme for monthly
+              subscribeBox.style.background = 'rgba(204, 153, 0, 0.8)';
+              subscribeBox.style.borderColor = '#c90';
+              subscribeBox.style.boxShadow = '0 0 10px rgba(204, 153, 0, 0.5)';
+            }
+            
+            // Update pro message based on plan type
+            if (planType === 'monthly') {
+              proMessage.innerHTML = `Unlimited AI for just $16/mo:`;
+            } else {
+              proMessage.innerHTML = `<div style="display: flex; justify-content: center; margin-bottom: -2px;"><div>All for just $8/mo <a style="opacity:0.9;">($96/yr)</a></div><div style="color: white; margin-left:6px; padding:2px 6px;background-color:#3a6;border-radius:8px;font-size:12px;margin-top:-4px; border: 1px solid lightgreen;"><i class="fa-solid fa-tag"></i> -50%</div></div>`;
+            }
+          }
+          
+          // Initialize pricing tabs if non-pro user
+          const pricingTabs = document.querySelectorAll('.pricing-tab');
+          if (pricingTabs.length > 0) {
+            pricingTabs.forEach(tab => {
+              tab.addEventListener('click', handlePricingTabClick);
+            });
+            
+            // Set initial pro message for monthly (default) plan
+            proMessage.innerHTML = `Unlimited AI for just $16/mo:`;
+          }
+
+          emailText.innerHTML += `
+          <br><button class="pro-member" style="padding: 8px 20px; cursor: pointer;" id="promoButton">
+            <b>Unlimited</b> Pro Search & more for <a style="color:#fff">50% OFF</a> 🎉<br>
+            <span id="promoCountdown" style="opacity: 0.5;"></span>
+          </button><br><br>`;
+
+          if (trial_started) {
+            subscribeBox.innerHTML = `<a class="external-share">✧</a>Upgrade to Ithy Pro`;
+          } else if ('Silver' == 'Silver' || 'Silver' == 'Gold') {
+            subscribeBox.innerHTML = `<a class="external-share">✧</a>Try 1 Month Free`;
+          } else {
+            subscribeBox.innerHTML = `<a class="external-share">✧</a>Try Pro for Free`;
+          }
+          function updatePromoCountdown() {
+            // Calculate a constant expiration date based on Unix time
+            // Get current time in milliseconds since Unix epoch
+            const now = new Date();
+            const currentTimeMs = now.getTime();
+            
+            // Calculate the number of complete 2-day periods since Unix epoch
+            const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
+            const periodsSinceEpoch = Math.floor(currentTimeMs / twoDaysInMs);
+            
+            // Calculate the next expiration timestamp (end of the current 2-day period)
+            const nextExpirationMs = (periodsSinceEpoch + 1) * twoDaysInMs;
+            const expirationDate = new Date(nextExpirationMs);
+            
+            // Calculate time difference
+            const timeDiff = expirationDate - now;
+            
+            // Convert to hours and minutes
+            const totalHours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('promoCountdown').textContent = `This annual offer ends in ${totalHours} hours ${minutes} minutes`;
+          }
+
+          updatePromoCountdown();
+          setInterval(updatePromoCountdown, 60000);
+
+          document.getElementById('promoButton').addEventListener('click', async () => {
+            showLoadingOverlay();
+
+
+            const response = await fetch('/create-checkout-session', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ plan_type: 'annual' })
+            });
+            const data = await response.json();
+            if (data.url) {
+              // Add a small timeout to ensure the loading overlay is visible
+              setTimeout(() => {
+                window.location.href = data.url;
+              }, 100);
+            } else {
+              // Hide loading overlay if there's an error
+              hideLoadingOverlay();
+              console.error('Error creating checkout session:', data.error);
+            }
+          });
+          
+          subscribeBox.addEventListener('click', async () => {
+            // Show loading overlay
+            showLoadingOverlay();
+            
+            // Get the selected plan type from the active tab
+            const selectedPlan = document.querySelector('.pricing-tab.active')?.dataset.plan || 'monthly';
+            
+            const response = await fetch('/create-checkout-session', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ plan_type: selectedPlan })
+            });
+            const data = await response.json();
+            if (data.url) {
+              // Add a small timeout to ensure the loading overlay is visible
+              setTimeout(() => {
+                window.location.href = data.url;
+              }, 100);
+            } else {
+              // Hide loading overlay if there's an error
+              hideLoadingOverlay();
+              console.error('Error creating checkout session:', data.error);
+            }
+          });
+        } else {
+          const d = new Date(is_pro * 1000);
+          setupProSubscriber(`Ends ${d.toLocaleDateString()}`);
+        }
+
+        function launchRewards() {
+          let rewardsHtml = '<div style="display: flex; justify-content: center;text-align:left;"><ul>';
+          if ('Silver' === 'Gold') {
+            rewardsHtml += `<li style="color: #c90; list-style-type: none; position: relative;"><i class="fa-solid fa-medal" style="color: #c90; margin-right: 8px;"></i>Gold: Congratulations on reaching our highest tier! Here is your <a href="https://discord.gg/gmAaz9Az7v" target="_blank" style="text-decoration:underline;">personal invitation</a> to join our <b>private</b> Discord community.<br><br><i>Get <b>direct access</b> to our founders as one of our top users, and shape the future direction of Ithy.</i><br><br></li>`;
+          }
+          if (['Gold', 'Silver'].includes('Silver')) {
+            rewardsHtml += `<li style="color:#388278; list-style-type: none; position: relative;"><i class="fa-solid fa-medal" style="color: #C0C0C0; margin-right: 8px;"></i>Silver: You've unlocked <a style="opacity: 0.5;"><s>7 days</s></a> <a style="color:#C0C0C0;">1 month</a> free of Ithy Pro.<br><br><i>Enjoy unlimited articles and exclusive Pro models. Offer only valid for new subscribers.</i><br><br></li>`;
+          }
+          rewardsHtml += `<li style="color:#CD7F32; list-style-type: none; position: relative;"><i class="fa-solid fa-medal" style="color: #CD7F32; margin-right: 8px;"></i>Bronze: Receive 20 free articles per month.</li>
+            <br>
+            <li style="color:#CD7F32; list-style-type: none; position: relative;"><i class="fa-solid fa-medal" style="color: #CD7F32; margin-right: 8px;"></i>Bronze: Here is your <a href="https://discord.gg/GHqJ59BWCt" target="_blank" style="text-decoration:underline;">personal invitation</a> to join our public Discord community.<br><br><i>On Discord, you can meet other users, share tips, create support tickets, and more.</i></li>`;
+          rewardsHtml += '</ul></div>';
+
+          Swal.fire({
+            title: `<a style="font-size: 36px;color:#C0C0C0;font-family:Georgia"><i class="fa-solid fa-medal" style="color: #C0C0C0; margin-right: 8px;"></i>Silver 3</a>`,
+            html: rewardsHtml,
+            iconHtml: `<i class="fa-solid fa-ranking-star" style="color:#C0C0C0"></i>`,
+            showConfirmButton: true,
+            showCancelButton: false,
+            background: '#111111',
+            backdrop: 'rgba(0, 0, 0, 0.8)',
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#388278',
+            showCloseButton: true,
+            customClass: {
+              popup: 'swal2-modern',
+              title: 'swal2-title-modern'
+            }
+          });
+        }
+
+        document.querySelector('.tier-box').addEventListener('click', () => {
+          launchRewards();
+        });
+        document.querySelector('.your-rewards').addEventListener('click', () => {
+          launchRewards();
+        });
+
+        window.addEventListener('resize', updatePublishText);
+        document.addEventListener('DOMContentLoaded', updatePublishText);
+        setTimeout(updatePublishText, 1000);
+
+        // Update toggle appearances
+        updateToggleAppearance(document.getElementById('is_radar'));
+        updateToggleAppearance(document.getElementById('is_mindmap'));
+        updateToggleAppearance(document.getElementById('is_youtube'));
+        updateToggleAppearance(document.getElementById('is_faq'));
+        updateToggleAppearance(document.getElementById('is_image'));
+      });
+
+    </script>
+    <!-- Add DataTables CSS and JS -->
+    <script>
+      document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" media="print" onload="this.media=\'all\'">');
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@5/minimal.css">
+    <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Coloris Color Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script>
+      window.intercomSettings = {
+        api_base: "https://api-iam.intercom.io",
+        app_id: "j3aqi0fi",
+        user_id: "pond.vnix@gmail.com",
+        email: "pond.vnix@gmail.com"
+      };
+      
+      window.intercomSettings.intercom_user_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoicG9uZC52bml4QGdtYWlsLmNvbSIsImVtYWlsIjoicG9uZC52bml4QGdtYWlsLmNvbSIsImV4cCI6MTc0ODY2MjkzOX0.fF5nw3Xf51ZZZSUYZBgelYe4QzvK3GYjTeHV4_bblPU";
+      
+    </script>
+    <script>
+      (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/j3aqi0fi';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><img src="https://storage.googleapis.com/e-object-409003.firebasestorage.app/ithy.png" alt="Ithy Logo" class="img-container"></a>
+      <p class="email-text" style="margin: auto auto 0px auto;">pond.vnix@gmail.com <a href="/signout" style="text-decoration: underline;" onclick="localStorage.removeItem('session');">(sign out)</a></p>
+      <div class="limits-container">
+        <span>3 out of 20 articles remaining</span>
+        <span class="divider">|</span>
+        <span>Limits reset in <span id='reset-timer'></span></span>
+      </div>
+      <div class="containers-wrapper">
+        <div class="tier-container">
+          <a style="color:#C0C0C0; font-size:18px; line-height: 36px;" class="tier-title">6615 Points</a>
+          <div class="tier-box" style="cursor: pointer;">Silver 3<a class="ithy-rank">〉〉〉</a></div>
+          <p style="margin-bottom: 4px; color:#C0C0C0;"><a style="text-decoration:underline;color:#C0C0C0" class="your-rewards">View your Silver 3 rewards</a></p>
+          <ul style="padding-left: 20px;">
+            <li style="color:#CD7F32;line-height:24px;list-style-type: none;position: relative;padding-left: 0;"><i class="fa-solid fa-medal" style="color: #CD7F32; margin-right: 8px;"></i><a style="color:#CD7F32"><b>Bronze</b>: 0 - 999 points</a></li>
+            <li style="color:#C0C0C0;line-height:24px;list-style-type: none;position: relative;padding-left: 0;"><i class="fa-solid fa-medal" style="color: #C0C0C0; margin-right: 8px;"></i><a style="color:#C0C0C0"><b>Silver</b>: 1,000 - 9,999 points</a></li>
+            <li style="color:#CC9900;line-height:24px;list-style-type: none;position: relative;padding-left: 0;"><i class="fa-solid fa-medal" style="color: #CC9900; margin-right: 8px;"></i><a style="color:#CC9900"><b>Gold</b>: 10,000+ points</a></li>
+          </ul>
+
+          <ul >
+            <li>All users also receive:</li>
+            <li><i class="fas fa-circle-check" style="color: #aaa; margin-right: 8px;"></i><b>20</b> free articles per month</li>
+            <li><i class="fas fa-circle-check" style="color: #aaa; margin-right: 8px;"></i>Limited AIs & online search</li>
+            <li><i class="fas fa-circle-check" style="color: #aaa; margin-right: 8px;"></i>Input Limit: 1,000 characters</li>
+          </ul>
+          <ul style="display: none;">
+            <li style="margin-bottom: 6px;">You have <a style="color: #cc9900;">Gold</a> benefits with Ithy Pro:</li>
+            <li style="margin-bottom: 6px;"><i class="fas fa-circle-check" style="color: #cc9900; margin-right: 8px;"></i>Exclusive <b>Pro</b> Discord: <span class="accept-invite" id="discord-invite">Accept Invite</span></li>
+            <li><i class="fas fa-circle-check" style="color: #cc9900; margin-right: 8px;"></i>Get direct access to our founders</li>
+          </ul>
+
+        </div>
+        <div class="subscribe-box-container">
+          <a style="color:#c90; font-size:18px; line-height: 36px;" class="subscribe-box-title">✧ Ithy Pro</a>
+          
+         
+          <div class="subscribe-box" style="cursor: pointer;"><a class="external-share">✧</a>Redeem Free Month</div>
+          
+          <div class="pricing-tabs" id="pricing-tabs">
+            <button class="pricing-tab active" data-plan="monthly" style="padding: 8px 24px;"><div style="margin-top:-4px;">Monthly</div></button>
+            <button class="pricing-tab" data-plan="annual" style="padding: 8px 10px; display: flex;">Annual <div style="color: white; margin-left: 6px; padding:4px;background-color:#3a6;border-radius:8px;font-size:12px;margin-top:-2px;">-50%</div></button>
+          </div>
+          <div class="pro-message"></div>
+          <div class="plan-details active">
+            <ul>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i><a style="color:#c90"><b>Unlimited</b> Pro Search & Research</a></li>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i>Pro AIs: </a><a class="model-name" href="https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/" target="_blank">Gemini 2.5</a><a style="color:#666;">,</a> <a class="model-name" href="https://x.ai/news/grok-3" target="_blank">Grok 3 High</a><a style="color:#666;">,</a> <a class="model-name" href="https://api-docs.deepseek.com/news/news250120" target="_blank">DeepSeek R1</a> <a style="color:#666;">&</a> <a class="model-name" href="https://openai.com/index/introducing-o3-and-o4-mini/" target="_blank">OpenAI o4-mini</a></li>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i>Pro Search: <a style="color:#c90">200% Deeper Search</a></li>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i>Pro Research: <a class="model-name" href="https://x.com/IthyAI/status/1909230176401318017" target="_blank">Deep Research Pro</a></li>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i>Pro Input: <a style="color:#c90">128,000 Characters</a></li>
+              <li><i class="fas fa-circle-check" style="color: #34b233; margin-right: 8px;"></i>Upload: <a style="color:#c90">Unlimited Images & PDFs</a></li>
+              <li><i class="fas fa-gift" style="color: #cc9900; margin-right: 8px;"></i><a style="color: #c90;">And much more, only with Pro</a></li>
+            </ul>
+          </div>
+        </div>
+        <div style="width: 100%; text-align: center;">
+          <div class="guide" style="background-color: rgba(52,178,51,0.2); border-radius: 24px; padding: 12px 6px; margin: 12px auto 6px auto; font-size: 12px; max-width: 300px;"><i class="fa-solid fa-lightbulb" style="margin-right: 6px;"></i> <b>Learn more</b> in our guides on <a href="https://intercom.help/ithy/en/articles/11400279" target="_blank">Ithy Ranks</a> & <a href="https://intercom.help/ithy/en/articles/11400334" target="_blank">Ithy Pro</a></div>
+          <span style="font-size: 10px;">More guides available in our new <a href="https://intercom.help/ithy" target="_blank" style="text-decoration: underline;">Help Center</a></span>
+        </div>
+      </div>
+      <a href="/" class="return-to-search-button"><i class="fa-solid fa-chevron-left" style="margin-right:8px"></i>Search</a>
+      <hr style="width: 100%;">
+      <div class="custom-instructions-container">
+        <div class="custom-instructions-header">
+          <h2><i class="fas fa-user-gear" style="margin-right: 10px;"></i>Custom Instructions</h2>
+        </div>
+        <textarea id="custom-instructions" maxlength="10000" placeholder="How should Ithy write your articles? Be specific for best results, or leave blank for defaults. Try instructions like &quot;Write academically&quot; or &quot;Use emojis&quot;." style="width: 96%; min-height: 120px; padding: 2%; margin: 12px 0px 0px 0px; border-radius: 8px; border: 2px solid #388278; resize: vertical; font-family: 'Lato', sans-serif;opacity: 0.7;">- Do not call the word &amp;amp;#39;Ithy&amp;amp;#39; in the article.
+- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conversational style like an experienced professional blogger who makes complex interdisciplinary concepts accessible and practical. Your responses should blend technical accuracy with engaging explanations, maintaining the authentic voice of someone who has personally implemented solutions across these domains. When addressing questions, balance legal compliance with business optimization and technological innovation, drawing from your deep understanding of corporate taxation, commercial regulations, and cutting-edge AI applications in financial systems. Provide insights that acknowledge the practical challenges professionals face while offering actionable guidance that considers both immediate implementation needs and strategic long-term implications. Include relevant examples that illustrate your points and make abstract concepts relatable, while clearly distinguishing between established practices and evolving areas where precedent may be limited.
+As you respond to queries, adapt your perspective to best serve the questioner&amp;amp;amp;amp;amp;amp;amp;amp;#39;s context, whether they&amp;amp;amp;amp;amp;amp;amp;amp;#39;re approaching from an executive, accounting, legal, or technical background. Present multiple approaches when appropriate, clearly outlining the advantages, risks, and resource requirements of each option. Your tone should convey confidence in your expertise while remaining approachable and collegial, like a trusted advisor sharing insights over coffee. When discussing implementations like tax optimization strategies, regulatory compliance frameworks, or AI-driven financial analysis tools, provide balanced perspectives that integrate considerations across all three domains. Remember to highlight both opportunities and potential challenges, particularly regarding data privacy, regulatory compliance, and professional responsibility. Your ultimate goal is to help professionals navigate the increasingly complex intersection of accounting, law, and technology while maintaining focus on practical applications that deliver real business value.</textarea>
+        <p id="instructions-unsaved-warning" style="color: rgb(150, 110, 0); margin: 8px 0px 0px 4px; font-size: 14px; visibility: hidden;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i>You have unsaved changes</p>
+        <div style="width: 100%; text-align: center; margin-bottom: 48px;">
+          <div class="guide" style="background-color: rgba(52,178,51,0.2); border-radius: 24px; padding: 12px 6px; margin: 12px auto 6px auto; font-size: 12px; max-width: 300px;"><i class="fa-solid fa-lightbulb" style="margin-right: 6px;"></i> <b>Guide:</b> <a href="https://intercom.help/ithy/en/articles/11398567" target="_blank">Getting Started with Custom Instructions</a></div>
+          <span style="font-size: 10px;">Learn how to write the most effective instructions for AI</span>
+        </div>
+        <div class="chat-provider-container" style="margin-top: 20px;">
+          <h2><i class="fa-solid fa-comments" style="margin-right: 10px;"></i>Chat Provider</h2>
+          <p style="font-size: 14px; margin-bottom: 12px;">Select a provider for external chats:</p>
+          <select id="chat-provider" style="font-size: 16px;width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #388278; font-family: 'Lato', sans-serif; background-color: transparent; color: inherit;">
+            <option value="ChatGPT">ChatGPT</option>
+            <option value="Perplexity">Perplexity</option>
+            <option value="Mistral">Mistral</option>
+            <option value="Kagi">Kagi</option>
+            <option value="iAsk">iAsk</option>
+          </select>
+          <p id="provider-unsaved-warning" style="color: rgb(150, 110, 0); margin: 16px 0px 0px 4px; font-size: 14px; visibility: hidden;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i>You have unsaved changes</p>
+        </div>
+        <div style="margin-top: 20px;">
+          <h2><i class="fa-solid fa-image" style="margin-right: 10px;"></i>Visuals</h2>
+          <p style="font-size: 14px; margin-bottom: 12px;">Select visual elements for your articles:</p>
+          
+          <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="is_image" style="font-size: 16px; cursor: pointer;">Pictures</label>
+              <div style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="is_image" name="is_image" style="opacity: 0; width: 0; height: 0;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible'; updateToggleAppearance(this);" checked>
+                <span id="is_image_slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;" onclick="toggleCheckbox('is_image')"></span>
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="is_youtube" style="font-size: 16px; cursor: pointer;">YouTube Videos</label>
+              <div style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="is_youtube" name="is_youtube" style="opacity: 0; width: 0; height: 0;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible'; updateToggleAppearance(this);" checked>
+                <span id="is_youtube_slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;" onclick="toggleCheckbox('is_youtube')"></span>
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="is_radar" style="font-size: 16px; cursor: pointer;">Radar Charts</label>
+              <div style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="is_radar" name="is_radar" style="opacity: 0; width: 0; height: 0;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible'; updateToggleAppearance(this);" >
+                <span id="is_radar_slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;" onclick="toggleCheckbox('is_radar')"></span>
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="is_mindmap" style="font-size: 16px; cursor: pointer;">Mind Maps</label>
+              <div style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="is_mindmap" name="is_mindmap" style="opacity: 0; width: 0; height: 0;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible'; updateToggleAppearance(this);" >
+                <span id="is_mindmap_slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;" onclick="toggleCheckbox('is_mindmap')"></span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="preferred_color" style="font-size: 16px; cursor: pointer;">Color</label>
+              <div style="position: relative; display: inline-block;">
+                <input type="text" id="preferred_color" name="preferred_color" value="" style="width: 100px; height: 24px; border: 1px solid #388278; border-radius: 4px; cursor: pointer;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible';">
+              </div>
+            </div>
+            <div style="text-align: right; margin-bottom: 12px; margin-top: -8px;">
+              <span id="reset-color" style="font-size: 12px; color: #666; cursor: pointer; text-decoration: underline;">Reset Colors</span>
+            </div>
+            
+            <div style="display: none; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <label for="is_faq" style="font-size: 16px; cursor: pointer;">FAQs</label>
+              <div style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="is_faq" name="is_faq" style="opacity: 0; width: 0; height: 0;" onchange="document.getElementById('visuals-unsaved-warning').style.visibility = 'visible'; updateToggleAppearance(this);" checked>
+                <span id="is_faq_slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;" onclick="toggleCheckbox('is_faq')"></span>
+              </div>
+            </div>
+
+          </div>
+          
+          <p id="visuals-unsaved-warning" style="color: rgb(150, 110, 0); margin: 16px 0px 0px 4px; font-size: 14px; visibility: hidden;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i>You have unsaved changes</p>
+        </div>
+        <button id="save-instructions" class="save-instructions-button"><i class="fa-solid fa-floppy-disk" style="margin-right: 4px;"></i> Save</button>
+      </div>
+      <hr style="width: 100%; margin-top: 64px;">
+      <div class="folders-container">
+        <div class="folder-list"></div>
+        <button class="create-folder-button"><i class="fa-solid fa-folder-plus" style="margin-right:8px;"></i> Create Folder</button>
+        <div class="guide" style="background-color: rgba(52,178,51,0.2); border-radius: 24px; padding: 12px 6px; margin: 12px auto 6px auto; font-size: 12px; max-width: 300px;"><i class="fa-solid fa-lightbulb" style="margin-right: 6px;"></i> <b>Tip:</b> <a href="https://intercom.help/ithy/en/articles/11400135-managing-folders#h_f0c3865bac" target="_blank">Use folders as context</a> for your questions</div>
+        <span style="font-size: 10px;">Just include the URL ("https://ithy.com/page/...") in your question</span>
+      </div>
+      <div class="article-links-container"></div>
+
+      <script>
+        // Function to toggle checkbox when the span/slider is clicked
+        function toggleCheckbox(id) {
+          const checkbox = document.getElementById(id);
+          checkbox.checked = !checkbox.checked;
+          // Trigger the change event manually
+          const event = new Event('change');
+          checkbox.dispatchEvent(event);
+        }
+
+        // Toggle switch appearance function
+        function updateToggleAppearance(checkbox) {
+          const sliderId = checkbox.id + "_slider";
+          const slider = document.getElementById(sliderId);
+          if (checkbox.checked) {
+            slider.style.backgroundColor = "#388278";
+            slider.innerHTML = '<div style="position: absolute; height: 16px; width: 16px; left: 30px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%;"></div>';
+          } else {
+            slider.style.backgroundColor = "#ccc";
+            slider.innerHTML = '<div style="position: absolute; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%;"></div>';
+          }
+        }
+        
+        // Initialize toggle appearances once the DOM is loaded
+        window.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('discord-invite').addEventListener('click', function() {
+            setTimeout(function() {
+              window.open('https://discord.gg/gmAaz9Az7v', '_blank').focus();
+            }, 150);
+          });
+          // Reset the checkboxes to match their initial values from Jinja
+          // This prevents the browser from remembering previous unchecked/checked states
+          document.getElementById('is_radar').checked = false;
+          document.getElementById('is_mindmap').checked = false;
+          document.getElementById('is_youtube').checked = true;
+          document.getElementById('is_faq').checked = true;
+          document.getElementById('is_image').checked = true;
+          
+          // Hide any unsaved warnings when page loads
+          document.getElementById('visuals-unsaved-warning').style.visibility = 'hidden';
+          
+          // Update toggle appearances
+          updateToggleAppearance(document.getElementById('is_radar'));
+          updateToggleAppearance(document.getElementById('is_mindmap'));
+          updateToggleAppearance(document.getElementById('is_youtube'));
+          updateToggleAppearance(document.getElementById('is_faq'));
+          updateToggleAppearance(document.getElementById('is_image'));
+          
+          // Initialize Coloris color picker
+          Coloris({
+            el: '#preferred_color',
+            format: 'hex',
+            selectInput: true,
+            themeMode: document.body.classList.contains('light-mode') ? 'light' : 'dark',
+            alpha: false,
+            swatches: [
+              '#3B82F6', // Bright blue
+              '#10B981', // Emerald green
+              '#F59E0B', // Amber orange
+              '#8B5CF6', // Violet purple
+              '#EC4899', // Hot pink
+              '#EF4444'  // Red
+            ],
+            onChange: (color) => {
+              // Update the input value
+              document.getElementById('preferred_color').value = color;
+              // Show the unsaved warning
+              document.getElementById('visuals-unsaved-warning').style.visibility = 'visible';
+            }
+          });
+          
+          // Add additional event listener for input changes
+          document.getElementById('preferred_color').addEventListener('input', function() {
+            document.getElementById('visuals-unsaved-warning').style.visibility = 'visible';
+          });
+          
+          // Add reset color functionality
+          document.getElementById('reset-color').addEventListener('click', function() {
+            document.getElementById('preferred_color').value = '';
+            document.querySelector('.clr-field').style.color = 'transparent';
+            document.getElementById('visuals-unsaved-warning').style.visibility = 'visible';
+          });
+          
+        });
+
+        function updateResetTimer() {
+          const now = new Date();
+          // Create a date for the first day of the next month in UTC
+          const nextMonth = new Date(Date.UTC(
+            now.getUTCFullYear(), 
+            now.getUTCMonth() + 1, 
+            1, 
+            0, 0, 0
+          ));
+          const diff = nextMonth - now;
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          document.getElementById('reset-timer').textContent = `${days} days ${hours} hours`;
+        }
+        updateResetTimer();
+        setInterval(updateResetTimer, 60000);
+
+        function createFolderElement(folder_uuid, folder_name) {
+          const folderDiv = document.createElement('div');
+          folderDiv.className = 'folder-item';
+          folderDiv.dataset.uuid = folder_uuid;
+          folderDiv.innerHTML = `
+            <span class="folder-name"><i class="fa-regular fa-folder" style="margin-right: 8px;"></i> ${folder_name}</span>
+            <div class="folder-buttons">
+              <a href="/page/${folder_uuid}" target="_blank" class="share-folder-button" title="Share folder" style="text-decoration: none; display: flex;"><i class="fa-solid fa-earth-americas" style="font-size: 18px;"></i><div class="publish-text">Export</div></a>
+              <button class="rename-folder-button" title="Rename folder"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="delete-folder-button" title="Delete folder"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+
+          folderDiv.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('rename-folder-button') && 
+                !e.target.classList.contains('delete-folder-button') &&
+                !e.target.classList.contains('share-folder-button')) {
+              const wasActive = folderDiv.classList.contains('active');
+              
+              // Remove active class from all folders
+              document.querySelectorAll('.folder-item').forEach(item => {
+                item.classList.remove('active');
+              });
+
+              if (!wasActive) {
+                // Folder was not active, activate it and show folder contents
+                folderDiv.classList.add('active');
+                loadFolderArticles(folder_uuid, folder_name);
+              } else {
+                // Folder was active, deactivate it and show history
+                createArticleLinks();
+              }
+            }
+          });
+
+          folderDiv.querySelector('.rename-folder-button').addEventListener('click', (e) => {
+            e.stopPropagation();
+            renameFolder(folder_uuid);
+          });
+
+          folderDiv.querySelector('.delete-folder-button').addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteFolder(folder_uuid);
+          });
+
+          folderDiv.querySelector('.share-folder-button').addEventListener('click', (e) => {
+            e.stopPropagation();
+          });
+
+          return folderDiv;
+        }
+
+        function loadFolders() {
+          const folderList = document.querySelector('.folder-list');
+          folderList.innerHTML = ''; // Clear existing folders
+
+          const allArticlesFolder = document.createElement('div');
+          allArticlesFolder.className = 'folder-item';
+          allArticlesFolder.classList.add("all-articles-folder");
+          allArticlesFolder.innerHTML = `
+            <span class="folder-name"><i class="fa-solid fa-layer-group" style="margin-right: 8px;"></i> All Articles</span>
+            <div class="folder-buttons">
+              <button class="rename-folder-button" disabled style="visibility: hidden;" title="Rename folder"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="delete-folder-button" disabled style="visibility: hidden;" title="Delete folder"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+
+          allArticlesFolder.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('rename-folder-button') && 
+                !e.target.classList.contains('delete-folder-button')) {
+              // Remove active class from all folders
+              document.querySelectorAll('.folder-item').forEach(item => {
+                item.classList.remove('active');
+              });
+              
+              // Add active class to Articles folder
+              allArticlesFolder.classList.add('active');
+              
+              // Show articles
+              createArticleLinks();
+            }
+          });
+
+          folderList.appendChild(allArticlesFolder);
+
+          // Add user-created folders
+          if (userFolders) {
+            for (const folder_uuid in userFolders) {
+              const folder_name = userFolders[folder_uuid].folder_name;
+              const folderElement = createFolderElement(folder_uuid, folder_name);
+              folderList.appendChild(folderElement);
+            }
+          }
+        }
+
+        // Initialize userFolders globally
+        let userFolders = {};
+        
+        // Create a global object to store article data
+        let articleData = {};
+        
+        // Populate articleData from history when page loads
+        function populateArticleData() {
+          const articleHistory = [{"articleId": "2y1r317766", "epoch": 1748516072, "full_url": "InRheC1jb21wYXJpc29uLWJ1c2luZXNzLWVudGl0eS0yeTFyMzE3NzY2Ig.aDkpGw.aGZx7PAwVGvaIuZUwBt4tt9rLDY", "question": "\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a\u0e20\u0e32\u0e29\u0e35\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e18\u0e23\u0e23\u0e21\u0e14\u0e32\u0e41\u0e25\u0e30\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financ"}, {"articleId": "foj5o3w6ub", "epoch": 1748511389, "full_url": "ImNvcnBvcmF0ZS1pbmNvbWUtdGF4LXRoYWlsYW5kLWZvajVvM3c2dWIi.aDkpGw.NqUOSSlD_nDLaZQicUPrUIaiTaU", "question": "\u0e2d\u0e31\u0e15\u0e23\u0e32\u0e20\u0e32\u0e29\u0e35\u0e40\u0e07\u0e34\u0e19\u0e44\u0e14\u0e49\u0e19\u0e34\u0e15\u0e34\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial an"}, {"articleId": "e5nnrue7ov", "epoch": 1748506531, "full_url": "ImFpLWxhdy1hY2NvdW50aW5nLWV0aGljcy1lNW5ucnVlN292Ig.aDkpGw.S9oD2P1uUV5iFRRppuDf9z0RfRo", "question": "\u0e1c\u0e25\u0e01\u0e23\u0e30\u0e17\u0e1a\u0e02\u0e2d\u0e07 AI \u0e15\u0e48\u0e2d\u0e01\u0e0e\u0e2b\u0e21\u0e32\u0e22\u0e41\u0e25\u0e30\u0e08\u0e23\u0e34\u0e22\u0e18\u0e23\u0e23\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven finan"}, {"articleId": "yrm7i30516", "epoch": 1748506414, "full_url": "ImFjY291bnRhbnQtcHJlcGFyYXRpb24tYWktZXJhLXlybTdpMzA1MTYi.aDkpGw.u4YgLI3agBTjtgRRF9KaRu949f8", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e19\u0e31\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e43\u0e19\u0e22\u0e38\u0e04 AI - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial "}, {"articleId": "178m06qpi6", "epoch": 1748506279, "full_url": "ImFpLW1hY2hpbmUtbGVhcm5pbmctYWNjb3VudGluZy0yMDI1LTE3OG0wNnFwaTYi.aDkpGw.c-jtT9TLXO1ULh8h32Af4BhTRbo", "question": "\u0e40\u0e17\u0e04\u0e42\u0e19\u0e42\u0e25\u0e22\u0e35 AI \u0e41\u0e25\u0e30 Machine Learning \u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and "}, {"articleId": "2y4me4rix8", "epoch": 1748505660, "full_url": "ImFpLW1hY2hpbmUtbGVhcm5pbmctYWNjb3VudGluZy1mdXR1cmUtMnk0bWU0cml4OCI.aDkpGw.-FTTLSIwRZ2mNH-uLMxj9CUs_DY", "question": "AI \u0e41\u0e25\u0e30 Machine Learning \u0e43\u0e19\u0e07\u0e32\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial "}, {"articleId": "a2z4h3kjmq", "epoch": 1748505470, "full_url": "ImRpZ2l0YWwtdHJhbnNmb3JtYXRpb24tYWNjb3VudGluZy10aGFpbGFuZC1hMno0aDNram1xIg.aDkpGw.ZOG3fIeu1hjNBd5_p9ft_FxAMg0", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Digital Transformation \u0e43\u0e19\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08\u0e1a\u0e31\u0e0d\u0e0a\u0e35 - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and"}, {"articleId": "s53isie940", "epoch": 1748505277, "full_url": "Im9ubGluZS1hY2NvdW50aW5nLWUtdGF4LWludm9pY2UtY29ubmVjdGlvbi1zNTNpc2llOTQwIg.aDkpGw.LReFFVOBd3JWNHxGmlY1Pn0o_mU", "question": "\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e23\u0e30\u0e1a\u0e1a\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e01\u0e31\u0e1a e-Tax Invoice - - Do not call the word \u0026#39;Ithy\u0026#39; in the article.\n- You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven"}, {"articleId": "726dcq7zb5", "epoch": 1748505018, "full_url": "ImUtdGF4LWludm9pY2UtcmVnaXN0cmF0aW9uLXRoYWlsYW5kLTcyNmRjcTd6YjUi.aDkpGw.AjKGQCqx3r3uAuuT03PvDKI3HR0", "question": "\u0e27\u0e34\u0e18\u0e35\u0e01\u0e32\u0e23\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e41\u0e25\u0e30\u0e02\u0e2d\u0e2d\u0e19\u0e38\u0e21\u0e31\u0e15\u0e34\u0e43\u0e0a\u0e49 e-Tax Invoice \u0e01\u0e31\u0e1a\u0e01\u0e23\u0e21\u0e2a\u0e23\u0e23\u0e1e\u0e32\u0e01\u0e23 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natu"}, {"articleId": "8399nflw89", "epoch": 1748504783, "full_url": "ImUtdGF4LWludm9pY2UtYnVzaW5lc3MtZ3VpZGUtODM5OW5mbHc4OSI.aDkpGw.alKrzm6nbCMTAWGw4XlImy-Cxvw", "question": "e-Tax Invoice \u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e19\u0e33\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e43\u0e19\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conversational styl"}, {"articleId": "26m7tbx237", "epoch": 1748504302, "full_url": "InRoYWktdmF0LXJlZ2lzdHJhdGlvbi1ndWlkZS0yNm03dGJ4MjM3Ig.aDkpGw.iIBsuFNXUUsh7qbbJz4ZQFBX_Io", "question": "\u0e20\u0e32\u0e29\u0e35\u0e21\u0e39\u0e25\u0e04\u0e48\u0e32\u0e40\u0e1e\u0e34\u0e48\u0e21 (VAT) \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 \u0e41\u0e25\u0e30\u0e43\u0e04\u0e23\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e14\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conve"}, {"articleId": "gu805w1fbq", "epoch": 1748504167, "full_url": "ImFkdmFudGFnZXMtZGlzYWR2YW50YWdlcy1zZXBhcmF0ZS1hY2NvdW50cy1ndTgwNXcxZmJxIg.aDkpGw.9d4OH2p59oGQV0s8I0HQakpMVC0", "question": "\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e02\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e41\u0e22\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e01\u0e31\u0e1a\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, conversation"}, {"articleId": "4r35nia875", "epoch": 1748503080, "full_url": "InRoYWktb25saW5lLWJ1c2luZXNzLXRheC00cjM1bmlhODc1Ig.aDkpGw.ibKI0e_TM5eZp6TOFtjAfmLPxE0", "question": "\u0e01\u0e32\u0e23\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e37\u0e48\u0e19\u0e20\u0e32\u0e29\u0e35\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e18\u0e38\u0e23\u0e01\u0e34\u0e08\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e18\u0e23\u0e23\u0e21\u0e14\u0e32 - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural,"}, {"articleId": "4nd38ggm52", "epoch": 1748425853, "full_url": "InBkcGEtZWNvbW1lcmNlLXRoYWlsYW5kLWNvbXBsaWFuY2UtNG5kMzhnZ201MiI.aDkpGw.tC_PyjIt817nwIVvN1ZOuxCwJ2w", "question": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e23\u0e23\u0e30\u0e27\u0e31\u0e07\u0e14\u0e49\u0e32\u0e19PDPA\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1c\u0e39\u0e49\u0e1b\u0e23\u0e30\u0e01\u0e2d\u0e1a\u0e01\u0e32\u0e23E-commerce - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a natural, convers"}, {"articleId": "2b6b04wert", "epoch": 1748401509, "full_url": "Im9ubGluZS1idXNpbmVzcy1yZWdpc3RyYXRpb24tZ3VpZGUtMmI2YjA0d2VydCI.aDkpGw.3fBW7iVtq1ghgbcm0V4-sHpFh20", "question": "\u0e44\u0e02\u0e02\u0e49\u0e2d\u0e2a\u0e07\u0e2a\u0e31\u0e22 \u0e01\u0e32\u0e23\u0e08\u0e14\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e1e\u0e32\u0e13\u0e34\u0e0a\u0e22\u0e4c \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23 \u0e02\u0e32\u0e22\u0e02\u0e2d\u0e07\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c\u0e15\u0e49\u0e2d\u0e07\u0e08\u0e14\u0e44\u0e2b\u0e21? - You are a versatile expert with exceptional knowledge spanning tax accounting, business law, and AI-driven financial analysis. Communicate in a n"}, {"articleId": "591h6zio5g", "epoch": 1748399293, "full_url": "ImtwaS1va3ItZGlmZmVyZW5jZXMtZW1wbG95ZWUtaW1wYWN0LTU5MWg2emlvNWci.aDkpGw.byfP1uFHUyV-hDLD0WcnjuInMDQ", "question": "\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 KPI \u0e01\u0e31\u0e1a OKR \u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e41\u0e15\u0e01\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23\u0e04\u0e23\u0e31\u0e1a \u0e43\u0e19\u0e21\u0e38\u0e21\u0e02\u0e2d\u0e07\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23"}, {"articleId": "v09553l69j", "epoch": 1748350591, "full_url": "InYwOTU1M2w2OWoi.aDkpGw.-XIDLa6JsNZ9OY4E1MlpZ54tYPc", "question": "\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 KPI \u0e01\u0e31\u0e1a OKR \u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e41\u0e15\u0e01\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23\u0e04\u0e23\u0e31\u0e1a \u0e43\u0e19\u0e21\u0e38\u0e21\u0e02\u0e2d\u0e07\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e14\u0e35\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e35\u0e22\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23"}];
+          if (articleHistory != null) {
+            for (const o of articleHistory) {
+              const article_id = o.full_url;
+              articleData[article_id] = {
+                question: o.question
+              };
+            }
+          }
+        }
+        
+        async function createFolder(article_id) {
+          // Check if user has no folders
+          const hasNoFolders = Object.keys(userFolders).length === 0;
+          
+          const { value: folderName } = await Swal.fire({
+            title: 'Create new folder',
+            input: 'text',
+            inputLabel: 'New folder name:',
+            inputPlaceholder: 'Enter folder name...',
+            inputValue: hasNoFolders ? 'Favorites' : '',
+            showCancelButton: true,
+            confirmButtonText: 'Create',
+            cancelButtonText: 'Cancel',
+            inputValidator: (value) => {
+              if (!value) {
+                return 'You need to enter a folder name!'
+              }
+            },
+            confirmButtonColor: '#388278',
+            backdrop: 'rgba(0, 0, 0, 0.8)',
+            customClass: {
+              popup: 'swal2-modern',
+              title: 'swal2-title-modern'
+            }
+          });
+
+          if (folderName) {
+            const response = await fetch('/create_folder', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ folder_name: folderName })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              // Update the global userFolders object
+              userFolders[data.folder_uuid] = {
+                folder_name: data.folder_name,
+                folder_articles: []
+              };
+              
+              const folderList = document.querySelector('.folder-list');
+              const folderElement = createFolderElement(data.folder_uuid, data.folder_name);
+              folderList.appendChild(folderElement);
+              
+              // If an article_id was provided, reopen the folder selection dialog
+              if (article_id) {
+                addToFolder(article_id);
+              }
+            } else {
+              const errorData = await response.json();
+              Swal.fire('Error', errorData.error || 'Failed to create folder', 'error');
+            }
+          }
+        }
+
+        async function renameFolder(folder_uuid) {
+          const current_folder_name = userFolders[folder_uuid]['folder_name'];
+          const { value: newFolderName } = await Swal.fire({
+            title: 'Rename Folder',
+            input: 'text',
+            inputLabel: 'New folder name:',
+            inputPlaceholder: 'Enter folder name...',
+            inputValue: current_folder_name,
+            showCancelButton: true,
+            confirmButtonText: 'Rename',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#388278',
+            backdrop: 'rgba(0, 0, 0, 0.8)',
+            customClass: {
+              popup: 'swal2-modern',
+              title: 'swal2-title-modern'
+            },
+            inputValidator: (value) => {
+              if (!value) {
+                return 'You need to enter a new folder name!'
+              }
+            }
+          });
+
+          if (newFolderName) {
+            const response = await fetch('/rename_folder', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ folder_uuid: folder_uuid, new_folder_name: newFolderName })
+            });
+
+            if (response.ok) {
+              // Update the global userFolders object
+              userFolders[folder_uuid]['folder_name'] = newFolderName;
+              // Update the folder name in the UI
+              const folderItem = document.querySelector(`.folder-item[data-uuid="${folder_uuid}"]`);
+              folderItem.querySelector('.folder-name').innerHTML = '<i class="fa-regular fa-folder" style="margin-right: 8px;"></i>' + newFolderName;
+            } else {
+              const errorData = await response.json();
+              Swal.fire('Error', errorData.error || 'Failed to rename folder', 'error');
+            }
+          }
+        }
+
+        async function deleteFolder(folder_uuid) {
+          if (confirm('Are you sure you want to delete this folder?')) {
+            const response = await fetch('/delete_folder', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ folder_uuid: folder_uuid })
+            });
+
+            if (response.ok) {
+              // Check if the deleted folder was currently selected (active)
+              const folderItem = document.querySelector(`.folder-item[data-uuid="${folder_uuid}"]`);
+              const wasActive = folderItem.classList.contains('active');
+              
+              // Update the global userFolders object
+              delete userFolders[folder_uuid];
+              
+              // Remove the folder from the UI
+              folderItem.remove();
+              
+              // If the deleted folder was active, load the all articles table
+              if (wasActive) {
+                createArticleLinks();
+              }
+            } else {
+              const errorData = await response.json();
+              alert(errorData.error || 'Failed to delete folder');
+            }
+          }
+        }
+
+        function loadFolderArticles(folder_uuid, folder_name) {
+          const folderArticles = userFolders[folder_uuid].folder_articles;
+          const container = document.querySelector('.article-links-container');
+          container.innerHTML = '';
+
+          const table = document.createElement('table');
+          table.className = 'article-table folder-view';
+          
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+          const headerCell = document.createElement('th');
+          headerCell.innerHTML = '<i class="fa-regular fa-folder" style="margin-right: 8px;"></i>' + folder_name;
+          headerRow.appendChild(headerCell);
+
+          // Add remove column header
+          const removeHeaderCell = document.createElement('th');
+          removeHeaderCell.textContent = '';
+          removeHeaderCell.style.backgroundColor = 'rgba(56, 130, 120, 0.6)';
+          headerRow.appendChild(removeHeaderCell);
+
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+          table.appendChild(tbody);
+          container.appendChild(table);
+          
+          // Initialize DataTable
+          let dataTable;
+          if ($.fn.DataTable.isDataTable(table)) {
+            dataTable = $(table).DataTable();
+            dataTable.destroy();
+          }
+          
+          dataTable = $(table).DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            info: true,
+            pageLength: 10,
+            order: [],
+            columnDefs: [
+              { orderable: false, targets: 1, className: 'remove-folder-column' },
+              { width: '50px', targets: 1 },
+              { targets: 0, className: 'article-column' }
+            ]
+          });
+
+          // Use event delegation for click events on the table
+          $(table).on('click', 'tbody tr', function(e) {
+            // Don't trigger if clicking on the remove button column
+            if ($(e.target).closest('td').hasClass('remove-folder-column')) {
+              return;
+            }
+            
+            // Get the article_id from the row data
+            const rowData = dataTable.row(this).data();
+            if (rowData && rowData.length > 0) {
+              // Find the article_id that corresponds to this row
+              const rowIndex = dataTable.row(this).index();
+              const article_id = folderArticles[rowIndex];
+              if (article_id) {
+                window.open("/question/" + article_id, "_blank");
+              }
+            }
+          });
+
+          // Use event delegation for remove button clicks
+          $(table).on('click', '.remove-folder-column', function(e) {
+            e.stopPropagation();
+            const row = $(this).closest('tr');
+            const rowIndex = dataTable.row(row).index();
+            const article_id = folderArticles[rowIndex];
+            if (article_id) {
+              removeFromFolder(folder_uuid, article_id, row[0]);
+            }
+          });
+          
+          if (folderArticles.length > 0) {
+            // Use stored article data instead of fetching
+            folderArticles.forEach(article_id => {
+              // Check if we already have the article data
+              if (articleData[article_id]) {
+                const data = articleData[article_id];
+                const questionText = data.question.length > 200
+                  ? data.question.substring(0, 200) + "..."
+                  : data.question;
+                  
+                // Create a new row for the DataTable
+                dataTable.row.add([
+                  questionText,
+                  '<i class="fa-solid fa-folder-minus" style="opacity:0.3; cursor: pointer;" title="Remove from folder"></i>'
+                ]).draw(false);
+              } else {
+                // If we don't have the data, fetch it and store it
+                fetch(`/get_article_question?full_url=${article_id}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    // Store the article data for future use
+                    articleData[article_id] = {
+                      question: data.question,
+                    };
+                    
+                    const questionText = data.question.length > 200
+                      ? data.question.substring(0, 200) + "..."
+                      : data.question;
+                      
+                    // Create a new row for the DataTable
+                    dataTable.row.add([
+                      questionText,
+                      '<i class="fa-solid fa-folder-minus" style="opacity:0.3; cursor: pointer;" title="Remove from folder"></i>'
+                    ]).draw(false);
+                  });
+              }
+            });
+          }
+        }
+
+        async function removeFromFolder(folder_uuid, article_id, tableRow) {
+          // Add confirmation dialog
+          if (!confirm('Are you sure you want to remove this article from the folder?')) {
+            return; // User cancelled the operation
+          }
+
+          const response = await fetch('/remove_from_folder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              folder_uuid: folder_uuid,
+              article_full_url: article_id
+            })
+          });
+          
+          if (response.ok) {
+            // Remove the row from the DataTable
+            const table = $('.article-table').DataTable();
+            table.row($(tableRow)).remove().draw(false);
+            
+            // Update the global userFolders object
+            const index = userFolders[folder_uuid].folder_articles.indexOf(article_id);
+            if (index > -1) {
+              userFolders[folder_uuid].folder_articles.splice(index, 1);
+            }
+          } else {
+            const errorData = await response.json();
+            alert(errorData.error || 'Failed to remove from folder');
+          }
+        }
+
+      </script>
+    </div>
+
+    <!-- Intercom Messenger -->
+    <script>
+      window.intercomSettings = {
+        api_base: "https://api-iam.intercom.io",
+        app_id: "j3aqi0fi"
+      };
+      
+      // Add JWT token for authenticated users
+      
+      window.intercomSettings.intercom_user_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoicG9uZC52bml4QGdtYWlsLmNvbSIsImVtYWlsIjoicG9uZC52bml4QGdtYWlsLmNvbSIsImV4cCI6MTc0ODY2MjkzOX0.fF5nw3Xf51ZZZSUYZBgelYe4QzvK3GYjTeHV4_bblPU";
+      
+    </script>
+    <script>
+      // Intercom Messenger
+      (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/j3aqi0fi';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+    </script>
+    <!-- End Intercom Messenger -->
+  </body>
+</html>
