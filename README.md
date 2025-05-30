@@ -1,6 +1,27 @@
 # 🕷️ Ithy Data Scraper & WordPress Publisher
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-tetipong2542%2Fithy--data--scraper-blue?logo=github)](https://github.com/tetipong2542/ithy-data-scraper)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2.29-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18-blue?logo=react)](https://reactjs.org/)
+
 ระบบดึงข้อมูลบทความจาก ithy.com และโพสต์ไปยัง WordPress อัตโนมัติ พร้อมระบบจัดการการตั้งค่าที่ครบถ้วน
+
+## 🚀 Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/tetipong2542/ithy-data-scraper.git
+cd ithy-data-scraper
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
+
+เปิดเบราว์เซอร์ไปที่ `http://localhost:3000`
 
 ## ✨ ฟีเจอร์หลัก
 
