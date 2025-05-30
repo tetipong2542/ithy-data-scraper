@@ -1,0 +1,2 @@
+# This file ensures that the public directory is tracked by Git
+# even when it's empty or contains only generated files 

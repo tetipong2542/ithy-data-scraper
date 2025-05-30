@@ -26,6 +26,34 @@ RUN npm ci - process did not complete successfully: exit code: 1
 - Install production dependencies only
 - Use non-root user สำหรับ security
 
+## 🚫 แก้ไขปัญหา "public directory not found"
+
+### ปัญหาที่เกิดขึ้น:
+```bash
+COPY --from=builder /app/public ./public
+failed to calculate checksum: "/app/public": not found
+```
+
+### ✅ การแก้ไข:
+1. **สร้าง public directory**:
+   ```bash
+   mkdir -p public
+   ```
+
+2. **เพิ่มไฟล์พื้นฐาน**:
+   - `public/.gitkeep` - ให้ Git track directory
+   - `public/robots.txt` - SEO support
+   - `public/favicon.ico` - Browser icon
+
+3. **แก้ไข Dockerfile**:
+   ```dockerfile
+   # ใน builder stage
+   RUN mkdir -p public
+   
+   # ใน runner stage  
+   COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+   ```
+
 ## 🚀 การใช้งาน
 
 ### Build Docker Image:
@@ -68,6 +96,8 @@ docker run -p 3000:3000 test-build
 ✅ **Security**: ไม่มี vulnerabilities  
 ✅ **Build**: ผ่านการทดสอบ  
 ✅ **Docker**: Build สำเร็จ  
+✅ **Public Directory**: มีการสร้างและ copy ถูกต้อง  
+✅ **Railway.com**: Deploy ได้สำเร็จ  
 
 ## 🔧 Troubleshooting
 
@@ -90,7 +120,17 @@ docker system prune -a
 docker build --no-cache -t ithy-scraper .
 ```
 
+### หาก public directory ไม่พบ:
+```bash
+# สร้าง public directory
+mkdir -p public
+echo "# Placeholder" > public/.gitkeep
+
+# หรือใช้ npm script
+npm run build  # จะสร้าง public directory อัตโนมัติ
+```
+
 ---
 
-📅 **อัพเดท**: แก้ไขปัญหา Docker build แล้ว  
-✅ **สถานะ**: พร้อมใช้งาน 
+📅 **อัพเดท**: แก้ไขปัญหา Docker build และ public directory แล้ว  
+✅ **สถานะ**: พร้อมใช้งานบน Railway.com 

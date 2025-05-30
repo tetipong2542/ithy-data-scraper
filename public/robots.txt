@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Ithy Data Scraper & WordPress Publisher
+# Repository: https://github.com/tetipong2542/ithy-data-scraper 
