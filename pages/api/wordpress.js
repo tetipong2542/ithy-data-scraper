@@ -11,20 +11,35 @@ function decryptPassword(encryptedPassword) {
 }
 
 // ฟังก์ชัน scrape เนื้อหาจาก URL
-async function scrapeContent(url, targetClasses = '', cssSelectors = '') {
+async function scrapeContent(url, targetClasses = '', cssSelectors = '', sessionCookie = '') {
   try {
     console.log(`🔍 เริ่มดึงเนื้อหาจาก: ${url}`);
     
+    // สร้าง headers พื้นฐาน
+    const headers = {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language': 'th-TH,th;q=0.9,en;q=0.8',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'DNT': '1',
+      'Connection': 'keep-alive',
+      'Upgrade-Insecure-Requests': '1'
+    };
+    
+    // เพิ่ม Cookie header ถ้ามี session cookie (สำหรับ ithy.com)
+    if (sessionCookie && url.includes('ithy.com')) {
+      const cookieParts = [
+        'intercom-device-id-j3aqi0fi=8f2c4809-cb64-403c-823f-37308dc98db7',
+        'g_state={"i_l":0}',
+        `session=${sessionCookie}`,
+        'is_pro=false'
+      ];
+      headers.Cookie = cookieParts.join('; ');
+      console.log('🔑 ใช้ Session Cookie สำหรับ ithy.com');
+    }
+    
     const response = await axios.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'th-TH,th;q=0.9,en;q=0.8',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1'
-      },
+      headers,
       timeout: 30000
     });
 
@@ -323,7 +338,8 @@ export default async function handler(req, res) {
     const scrapedData = await scrapeContent(
       articleUrl,
       scrapingConfig.targetClasses,
-      scrapingConfig.cssSelectors
+      scrapingConfig.cssSelectors,
+      scrapingConfig.sessionCookie
     );
     
     // ขั้นตอนที่ 2: ประมวลผลเนื้อหา

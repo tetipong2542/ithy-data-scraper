@@ -11,16 +11,26 @@ const openDB = () => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
     
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => {
+      console.error('IndexedDB error:', request.error);
+      reject(request.error);
+    };
+    
+    request.onsuccess = () => {
+      console.log('IndexedDB opened successfully');
+      resolve(request.result);
+    };
     
     request.onupgradeneeded = (event) => {
+      console.log('IndexedDB upgrade needed');
       const db = event.target.result;
       if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
         db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
+        console.log('Created settings store');
       }
       if (!db.objectStoreNames.contains(DEFAULT_STORE)) {
         db.createObjectStore(DEFAULT_STORE, { keyPath: 'id' });
+        console.log('Created defaults store');
       }
     };
   });
@@ -36,7 +46,8 @@ const FACTORY_DEFAULTS = {
   },
   scraping: {
     targetClasses: 'div.outer.theme-transitions,div.content-area,article,main',
-    cssSelectors: '.content,.article-content,.post-content,.entry-content'
+    cssSelectors: '.content,.article-content,.post-content,.entry-content',
+    ithySessionCookie: ''
   },
   processing: {
     convertGutenberg: true,
@@ -48,9 +59,15 @@ const FACTORY_DEFAULTS = {
 
 // ฟังก์ชันเข้ารหัส/ถอดรหัสแบบ simple encryption
 const encryptData = (data) => {
-  const key = 'ithyScraper2024Key';
-  const encrypted = btoa(JSON.stringify(data) + key);
-  return encrypted;
+  try {
+    const key = 'ithyScraper2024Key';
+    const encrypted = btoa(JSON.stringify(data) + key);
+    console.log('🔐 Encrypted data successfully');
+    return encrypted;
+  } catch (error) {
+    console.error('❌ Encryption failed:', error);
+    throw error;
+  }
 };
 
 const decryptData = (encryptedData) => {
@@ -58,67 +75,227 @@ const decryptData = (encryptedData) => {
     const key = 'ithyScraper2024Key';
     const decrypted = atob(encryptedData);
     const jsonString = decrypted.replace(key, '');
-    return JSON.parse(jsonString);
+    const data = JSON.parse(jsonString);
+    console.log('🔓 Decrypted data successfully');
+    return data;
   } catch (error) {
+    console.error('❌ Decryption failed:', error);
     return null;
   }
 };
 
 const saveSettings = async (settings) => {
-  const db = await openDB();
-  const transaction = db.transaction([SETTINGS_STORE], 'readwrite');
-  const store = transaction.objectStore(SETTINGS_STORE);
-  const encryptedSettings = encryptData(settings);
-  await store.put({ id: 'main', data: encryptedSettings, timestamp: new Date().toISOString() });
+  try {
+    console.log('💾 Starting to save settings to IndexedDB...');
+    console.log('📦 Settings to save:', settings);
+    
+    const db = await openDB();
+    const transaction = db.transaction([SETTINGS_STORE], 'readwrite');
+    const store = transaction.objectStore(SETTINGS_STORE);
+    const encryptedSettings = encryptData(settings);
+    
+    return new Promise((resolve, reject) => {
+      const request = store.put({ 
+        id: 'main', 
+        data: encryptedSettings, 
+        timestamp: new Date().toISOString() 
+      });
+      
+      request.onsuccess = () => {
+        console.log('✅ Settings saved successfully to IndexedDB');
+        resolve();
+      };
+      
+      request.onerror = () => {
+        console.error('❌ Failed to save settings:', request.error);
+        reject(request.error);
+      };
+    });
+  } catch (error) {
+    console.error('❌ SaveSettings error:', error);
+    throw error;
+  }
 };
 
 const loadSettings = async () => {
   try {
+    console.log('📂 Starting to load settings from IndexedDB...');
+    
     const db = await openDB();
     const transaction = db.transaction([SETTINGS_STORE], 'readonly');
     const store = transaction.objectStore(SETTINGS_STORE);
-    const result = await store.get('main');
-    if (result && result.data) {
-      return decryptData(result.data);
-    }
-    return null;
+    
+    return new Promise((resolve, reject) => {
+      const request = store.get('main');
+      
+      request.onsuccess = () => {
+        const result = request.result;
+        if (result && result.data) {
+          console.log('📦 Found settings in IndexedDB:', result);
+          const decryptedData = decryptData(result.data);
+          if (decryptedData) {
+            console.log('✅ Settings loaded and decrypted successfully');
+            resolve(decryptedData);
+          } else {
+            console.log('⚠️ Failed to decrypt settings, using defaults');
+            resolve(null);
+          }
+        } else {
+          console.log('📭 No settings found in IndexedDB');
+          resolve(null);
+        }
+      };
+      
+      request.onerror = () => {
+        console.error('❌ Failed to load settings:', request.error);
+        reject(request.error);
+      };
+    });
   } catch (error) {
-    console.log('No settings found, using defaults');
+    console.error('❌ LoadSettings error:', error);
     return null;
   }
 };
 
 // บันทึกเป็น Default
 const saveAsDefault = async (settings) => {
-  const db = await openDB();
-  const transaction = db.transaction([DEFAULT_STORE], 'readwrite');
-  const store = transaction.objectStore(DEFAULT_STORE);
-  const encryptedSettings = encryptData(settings);
-  await store.put({ id: 'user_defaults', data: encryptedSettings, timestamp: new Date().toISOString() });
+  try {
+    console.log('⭐ Saving as default settings...');
+    
+    const db = await openDB();
+    const transaction = db.transaction([DEFAULT_STORE], 'readwrite');
+    const store = transaction.objectStore(DEFAULT_STORE);
+    const encryptedSettings = encryptData(settings);
+    
+    return new Promise((resolve, reject) => {
+      const request = store.put({ 
+        id: 'user_defaults', 
+        data: encryptedSettings, 
+        timestamp: new Date().toISOString() 
+      });
+      
+      request.onsuccess = () => {
+        console.log('✅ Default settings saved successfully');
+        resolve();
+      };
+      
+      request.onerror = () => {
+        console.error('❌ Failed to save default settings:', request.error);
+        reject(request.error);
+      };
+    });
+  } catch (error) {
+    console.error('❌ SaveAsDefault error:', error);
+    throw error;
+  }
+};
+
+// ฟังก์ชันตรวจสอบสถานะ IndexedDB
+const checkIndexedDBStatus = async () => {
+  try {
+    if (!window.indexedDB) {
+      return { status: 'unsupported', message: 'IndexedDB ไม่รองรับในเบราว์เซอร์นี้' };
+    }
+    
+    const db = await openDB();
+    const transaction = db.transaction([SETTINGS_STORE], 'readonly');
+    const store = transaction.objectStore(SETTINGS_STORE);
+    const result = await store.get('main');
+    
+    return {
+      status: 'working',
+      message: 'IndexedDB ทำงานปกติ',
+      hasData: !!result,
+      storageSize: await getStorageSize()
+    };
+  } catch (error) {
+    return { status: 'error', message: `เกิดข้อผิดพลาด: ${error.message}` };
+  }
+};
+
+// ฟังก์ชันตรวจสอบขนาดข้อมูลที่เก็บ
+const getStorageSize = async () => {
+  try {
+    if ('storage' in navigator && 'estimate' in navigator.storage) {
+      const estimate = await navigator.storage.estimate();
+      return {
+        used: (estimate.usage / 1024 / 1024).toFixed(2) + ' MB',
+        quota: (estimate.quota / 1024 / 1024 / 1024).toFixed(2) + ' GB'
+      };
+    }
+    return { used: 'N/A', quota: 'N/A' };
+  } catch (error) {
+    return { used: 'Error', quota: 'Error' };
+  }
 };
 
 // โหลด Default ที่บันทึกไว้
 const loadUserDefaults = async () => {
   try {
+    console.log('📂 Loading user default settings...');
+    
     const db = await openDB();
     const transaction = db.transaction([DEFAULT_STORE], 'readonly');
     const store = transaction.objectStore(DEFAULT_STORE);
-    const result = await store.get('user_defaults');
-    if (result && result.data) {
-      return decryptData(result.data);
-    }
-    return null;
+    
+    return new Promise((resolve, reject) => {
+      const request = store.get('user_defaults');
+      
+      request.onsuccess = () => {
+        const result = request.result;
+        if (result && result.data) {
+          console.log('📦 Found user defaults in IndexedDB');
+          const decryptedData = decryptData(result.data);
+          if (decryptedData) {
+            console.log('✅ User defaults loaded successfully');
+            resolve(decryptedData);
+          } else {
+            console.log('⚠️ Failed to decrypt user defaults');
+            resolve(null);
+          }
+        } else {
+          console.log('📭 No user defaults found');
+          resolve(null);
+        }
+      };
+      
+      request.onerror = () => {
+        console.error('❌ Failed to load user defaults:', request.error);
+        reject(request.error);
+      };
+    });
   } catch (error) {
+    console.error('❌ LoadUserDefaults error:', error);
     return null;
   }
 };
 
 // ลบ User Defaults
 const clearUserDefaults = async () => {
-  const db = await openDB();
-  const transaction = db.transaction([DEFAULT_STORE], 'readwrite');
-  const store = transaction.objectStore(DEFAULT_STORE);
-  await store.delete('user_defaults');
+  try {
+    console.log('🗑️ Clearing user defaults...');
+    
+    const db = await openDB();
+    const transaction = db.transaction([DEFAULT_STORE], 'readwrite');
+    const store = transaction.objectStore(DEFAULT_STORE);
+    
+    return new Promise((resolve, reject) => {
+      const request = store.delete('user_defaults');
+      
+      request.onsuccess = () => {
+        console.log('✅ User defaults cleared successfully');
+        resolve();
+      };
+      
+      request.onerror = () => {
+        console.error('❌ Failed to clear user defaults:', request.error);
+        reject(request.error);
+      };
+    });
+  } catch (error) {
+    console.error('❌ ClearUserDefaults error:', error);
+    throw error;
+  }
 };
 
 export default function Home() {
@@ -139,7 +316,8 @@ export default function Home() {
   });
   const [scrapingSettings, setScrapingSettings] = useState({
     targetClasses: 'div.outer.theme-transitions,div.content-area,article,main',
-    cssSelectors: '.content,.article-content,.post-content,.entry-content'
+    cssSelectors: '.content,.article-content,.post-content,.entry-content',
+    ithySessionCookie: ''
   });
   const [processingSettings, setProcessingSettings] = useState({
     convertGutenberg: true,
@@ -151,13 +329,24 @@ export default function Home() {
   const [showSettings, setShowSettings] = useState(false);
   const [postingStates, setPostingStates] = useState({});
   const [connectionStatus, setConnectionStatus] = useState(null);
+  const [dbStatus, setDbStatus] = useState(null);
+  const [storageInfo, setStorageInfo] = useState({ used: 'N/A', quota: 'N/A' });
 
   const fetchArticles = async () => {
     try {
       setLoading(true);
       setError(null);
       
-      const response = await fetch('/api/articles');
+      // สร้าง URL พร้อม session cookie ถ้ามี
+      let apiUrl = '/api/articles';
+      if (scrapingSettings.ithySessionCookie) {
+        const params = new URLSearchParams({
+          sessionCookie: scrapingSettings.ithySessionCookie
+        });
+        apiUrl = `/api/articles?${params.toString()}`;
+      }
+      
+      const response = await fetch(apiUrl);
       const data = await response.json();
       
       if (data.success) {
@@ -178,27 +367,58 @@ export default function Home() {
   useEffect(() => {
     const loadSettingsFromDB = async () => {
       try {
+        console.log('🔄 เริ่มโหลดการตั้งค่าจาก IndexedDB...');
+        
+        // ตรวจสอบสถานะ IndexedDB
+        const dbStatusResult = await checkIndexedDBStatus();
+        setDbStatus(dbStatusResult);
+        setStorageInfo(dbStatusResult.storageSize || { used: 'N/A', quota: 'N/A' });
+        
+        console.log('🔍 สถานะ IndexedDB:', dbStatusResult);
+        
+        // โหลดการตั้งค่า
         const settings = await loadSettings();
+        console.log('📦 ข้อมูลที่โหลดมา:', settings);
+        
         if (settings) {
+          // ตั้งค่า WordPress
           if (settings.wordpress) {
-            setWpSettings(settings.wordpress);
+            setWpSettings(prev => ({
+              ...prev,
+              ...settings.wordpress
+            }));
+            console.log('✅ โหลด WordPress settings สำเร็จ:', settings.wordpress);
           }
+          
+          // ตั้งค่า Scraping
           if (settings.scraping) {
-            setScrapingSettings(settings.scraping);
+            setScrapingSettings(prev => ({
+              ...prev,
+              ...settings.scraping
+            }));
+            console.log('✅ โหลด Scraping settings สำเร็จ:', settings.scraping);
           }
+          
+          // ตั้งค่า Processing
           if (settings.processing) {
-            setProcessingSettings(settings.processing);
+            setProcessingSettings(prev => ({
+              ...prev,
+              ...settings.processing
+            }));
+            console.log('✅ โหลด Processing settings สำเร็จ:', settings.processing);
           }
-          console.log('โหลดการตั้งค่าสำเร็จ');
+          
+          console.log('✅ โหลดการตั้งค่าสำเร็จทั้งหมด!');
         } else {
+          console.log('⚠️ ไม่พบการตั้งค่าที่บันทึกไว้ ใช้ค่าเริ่มต้นจากโรงงาน');
           // ถ้าไม่มีการตั้งค่า ใช้ค่า factory defaults
           setWpSettings(FACTORY_DEFAULTS.wordpress);
           setScrapingSettings(FACTORY_DEFAULTS.scraping);
           setProcessingSettings(FACTORY_DEFAULTS.processing);
-          console.log('ใช้ค่าเริ่มต้นจากโรงงาน');
         }
       } catch (error) {
-        console.error('ไม่สามารถโหลดการตั้งค่าได้:', error);
+        console.error('❌ ไม่สามารถโหลดการตั้งค่าได้:', error);
+        setDbStatus({ status: 'error', message: `เกิดข้อผิดพลาดในการโหลดข้อมูล: ${error.message}` });
         // ใช้ค่า factory defaults
         setWpSettings(FACTORY_DEFAULTS.wordpress);
         setScrapingSettings(FACTORY_DEFAULTS.scraping);
@@ -214,21 +434,88 @@ export default function Home() {
     handleSearch(searchTerm);
   }, [articles]);
 
+  // Auto-save เมื่อมีการเปลี่ยนแปลงการตั้งค่า (หลังจากโหลดเสร็จแล้ว)
+  useEffect(() => {
+    // ตรวจสอบว่าได้โหลดข้อมูลเสร็จแล้วหรือไม่
+    const isDataLoaded = dbStatus && (dbStatus.status === 'working' || dbStatus.status === 'error');
+    
+    // ตรวจสอบว่ามีการเปลี่ยนแปลงจริงหรือไม่ (ไม่ใช่ค่าเริ่มต้นเปล่า)
+    const hasRealData = wpSettings.siteUrl || 
+                       wpSettings.username || 
+                       wpSettings.appPassword ||
+                       scrapingSettings.targetClasses !== FACTORY_DEFAULTS.scraping.targetClasses;
+    
+    console.log('🔍 Auto-save check:', {
+      isDataLoaded,
+      hasRealData,
+      dbStatus: dbStatus?.status,
+      wpSettings,
+      scrapingSettings
+    });
+    
+    if (isDataLoaded && hasRealData) {
+      console.log('🔄 Auto-save: การตั้งค่ามีการเปลี่ยนแปลง');
+      
+      const autoSave = async () => {
+        try {
+          const allSettings = {
+            wordpress: wpSettings,
+            scraping: scrapingSettings,
+            processing: processingSettings
+          };
+          
+          console.log('💾 Auto-save: กำลังบันทึก...', allSettings);
+          await saveSettings(allSettings);
+          console.log('✅ Auto-save สำเร็จ');
+          
+          // อัพเดทสถานะ DB
+          const newDbStatus = await checkIndexedDBStatus();
+          setDbStatus(newDbStatus);
+          setStorageInfo(newDbStatus.storageSize || { used: 'N/A', quota: 'N/A' });
+          
+        } catch (error) {
+          console.error('❌ Auto-save ล้มเหลว:', error);
+        }
+      };
+      
+      // Debounce auto-save 1 วินาที
+      const timeoutId = setTimeout(autoSave, 1000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [wpSettings, scrapingSettings, processingSettings, dbStatus]);
+
   // Save all settings
   const saveAllSettings = async () => {
     try {
+      console.log('🔄 เริ่มบันทึกการตั้งค่าแบบแมนนวล...');
+      
       const allSettings = {
         wordpress: wpSettings,
         scraping: scrapingSettings,
         processing: processingSettings
       };
       
+      console.log('📦 ข้อมูลที่จะบันทึก:', allSettings);
+      
+      // บันทึกการตั้งค่า
       await saveSettings(allSettings);
-      setCopyStatus('บันทึกการตั้งค่าสำเร็จ!');
-      setTimeout(() => setCopyStatus(''), 2000);
+      
+      // ตรวจสอบสถานะ IndexedDB หลังบันทึก
+      const dbStatusResult = await checkIndexedDBStatus();
+      setDbStatus(dbStatusResult);
+      setStorageInfo(dbStatusResult.storageSize || { used: 'N/A', quota: 'N/A' });
+      
+      // ทดสอบการโหลดกลับมาเพื่อยืนยัน
+      const verifySettings = await loadSettings();
+      console.log('🔍 ยืนยันข้อมูลที่บันทึก:', verifySettings);
+      
+      console.log('✅ บันทึกการตั้งค่าสำเร็จ!');
+      setCopyStatus('✅ บันทึกการตั้งค่าสำเร็จ!');
+      setTimeout(() => setCopyStatus(''), 3000);
     } catch (error) {
-      setCopyStatus('ไม่สามารถบันทึกการตั้งค่าได้');
-      setTimeout(() => setCopyStatus(''), 2000);
+      console.error('❌ ไม่สามารถบันทึกการตั้งค่าได้:', error);
+      setCopyStatus(`❌ ไม่สามารถบันทึกการตั้งค่าได้: ${error.message}`);
+      setTimeout(() => setCopyStatus(''), 5000);
     }
   };
 
@@ -276,13 +563,19 @@ export default function Home() {
     try {
       setPostingStates(prev => ({ ...prev, [articleId]: 'posting' }));
       
+      // เตรียมการตั้งค่า scraping พร้อม session cookie
+      const scrapingConfigWithCookie = {
+        ...scrapingSettings,
+        sessionCookie: scrapingSettings.ithySessionCookie
+      };
+      
       const response = await fetch('/api/wordpress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           articleUrl: article.url,
           wpConfig: wpSettings,
-          scrapingConfig: scrapingSettings,
+          scrapingConfig: scrapingConfigWithCookie,
           processingConfig: processingSettings
         })
       });
@@ -323,7 +616,12 @@ export default function Home() {
 
   const truncateTitle = (title, maxLength = 80) => {
     if (!title) return 'ไม่มีชื่อ';
-    return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+    
+    // ตัดข้อความหลัง '-' ออก
+    const titleBeforeDash = title.split(' - ')[0] || title.split(' – ')[0] || title.split('-')[0];
+    const cleanTitle = titleBeforeDash.trim();
+    
+    return cleanTitle.length > maxLength ? cleanTitle.substring(0, maxLength) + '...' : cleanTitle;
   };
 
   // Search function
@@ -369,6 +667,8 @@ export default function Home() {
   const resetSettings = async () => {
     if (confirm('คุณต้องการรีเซ็ตการตั้งค่าเป็นค่าเริ่มต้นจากโรงงานใช่หรือไม่?')) {
       try {
+        console.log('🏭 เริ่มรีเซ็ตเป็นค่าเริ่มต้นจากโรงงาน...');
+        
         const db = await openDB();
         const transaction = db.transaction([SETTINGS_STORE], 'readwrite');
         const store = transaction.objectStore(SETTINGS_STORE);
@@ -379,11 +679,18 @@ export default function Home() {
         setScrapingSettings(FACTORY_DEFAULTS.scraping);
         setProcessingSettings(FACTORY_DEFAULTS.processing);
         
-        setCopyStatus('รีเซ็ตเป็นค่าเริ่มต้นจากโรงงานแล้ว!');
-        setTimeout(() => setCopyStatus(''), 2000);
+        // ตรวจสอบสถานะ IndexedDB หลังรีเซ็ต
+        const dbStatusResult = await checkIndexedDBStatus();
+        setDbStatus(dbStatusResult);
+        setStorageInfo(dbStatusResult.storageSize || { used: 'N/A', quota: 'N/A' });
+        
+        console.log('✅ รีเซ็ตเป็นค่าเริ่มต้นจากโรงงานสำเร็จ!');
+        setCopyStatus('🏭 รีเซ็ตเป็นค่าเริ่มต้นจากโรงงานแล้ว!');
+        setTimeout(() => setCopyStatus(''), 3000);
       } catch (error) {
-        setCopyStatus('ไม่สามารถรีเซ็ตการตั้งค่าได้');
-        setTimeout(() => setCopyStatus(''), 2000);
+        console.error('❌ ไม่สามารถรีเซ็ตการตั้งค่าได้:', error);
+        setCopyStatus(`❌ ไม่สามารถรีเซ็ตการตั้งค่าได้: ${error.message}`);
+        setTimeout(() => setCopyStatus(''), 3000);
       }
     }
   };
@@ -392,18 +699,32 @@ export default function Home() {
   const setAsDefault = async () => {
     if (confirm('คุณต้องการบันทึกการตั้งค่าปัจจุบันเป็นค่าเริ่มต้นใช่หรือไม่?')) {
       try {
+        console.log('⭐ เริ่มบันทึกเป็นค่าเริ่มต้น...');
+        
         const currentSettings = {
           wordpress: wpSettings,
           scraping: scrapingSettings,
           processing: processingSettings
         };
         
+        console.log('📦 ข้อมูลที่จะบันทึกเป็นค่าเริ่มต้น:', currentSettings);
+        
+        // บันทึกทั้งเป็นการตั้งค่าปัจจุบันและเป็นค่าเริ่มต้น
         await saveAsDefault(currentSettings);
-        setCopyStatus('บันทึกเป็นค่าเริ่มต้นแล้ว!');
-        setTimeout(() => setCopyStatus(''), 2000);
+        await saveSettings(currentSettings);
+        
+        // ตรวจสอบสถานะ IndexedDB หลังบันทึก
+        const dbStatusResult = await checkIndexedDBStatus();
+        setDbStatus(dbStatusResult);
+        setStorageInfo(dbStatusResult.storageSize || { used: 'N/A', quota: 'N/A' });
+        
+        console.log('✅ บันทึกเป็นค่าเริ่มต้นสำเร็จ!');
+        setCopyStatus('⭐ บันทึกเป็นค่าเริ่มต้นแล้ว!');
+        setTimeout(() => setCopyStatus(''), 3000);
       } catch (error) {
-        setCopyStatus('ไม่สามารถบันทึกเป็นค่าเริ่มต้นได้');
-        setTimeout(() => setCopyStatus(''), 2000);
+        console.error('❌ ไม่สามารถบันทึกเป็นค่าเริ่มต้นได้:', error);
+        setCopyStatus(`❌ ไม่สามารถบันทึกเป็นค่าเริ่มต้นได้: ${error.message}`);
+        setTimeout(() => setCopyStatus(''), 3000);
       }
     }
   };
@@ -446,6 +767,36 @@ export default function Home() {
     }
   };
 
+  // ฟังก์ชันทดสอบการโหลดข้อมูล
+  const testLoadSettings = async () => {
+    try {
+      console.log('🧪 ทดสอบการโหลดข้อมูล...');
+      setCopyStatus('🧪 กำลังทดสอบการโหลดข้อมูล...');
+      
+      const settings = await loadSettings();
+      const dbStatus = await checkIndexedDBStatus();
+      
+      console.log('📊 ผลการทดสอบ:');
+      console.log('- ข้อมูลที่โหลดมา:', settings);
+      console.log('- สถานะ IndexedDB:', dbStatus);
+      console.log('- WordPress settings ปัจจุบัน:', wpSettings);
+      console.log('- Scraping settings ปัจจุบัน:', scrapingSettings);
+      console.log('- Processing settings ปัจจุบัน:', processingSettings);
+      
+      if (settings) {
+        setCopyStatus(`✅ พบข้อมูล: WordPress(${settings.wordpress ? '✓' : '✗'}), Scraping(${settings.scraping ? '✓' : '✗'}), Processing(${settings.processing ? '✓' : '✗'})`);
+      } else {
+        setCopyStatus('⚠️ ไม่พบข้อมูลที่บันทึกไว้');
+      }
+      
+      setTimeout(() => setCopyStatus(''), 5000);
+    } catch (error) {
+      console.error('❌ ข้อผิดพลาดในการทดสอบ:', error);
+      setCopyStatus(`❌ ข้อผิดพลาดในการทดสอบ: ${error.message}`);
+      setTimeout(() => setCopyStatus(''), 5000);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -461,17 +812,14 @@ export default function Home() {
         fontFamily: 'Arial, sans-serif'
       }}>
         <div style={{ 
-          maxWidth: '1600px', 
+          maxWidth: '1300px', 
           margin: '0 auto', 
-          padding: '20px' 
         }}>
           {/* Header */}
           <div style={{ 
-            background: 'white',
+            background: 'transparent',
             borderRadius: '10px',
-            padding: '30px',
             marginBottom: '20px',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
           }}>
             <h1 style={{ 
               color: '#333',
@@ -479,14 +827,14 @@ export default function Home() {
               fontSize: '28px',
               fontWeight: 'bold'
             }}>
-              📊 Ithy Data Scraper & WordPress Publisher
+              📊 Data Scraper & WordPress Publisher
             </h1>
             <p style={{ 
               color: '#666',
               margin: '0 0 20px 0',
               fontSize: '16px'
             }}>
-              ระบบดึงข้อมูลบทความจาก ithy.com และโพสต์ไปยัง WordPress อัตโนมัติ
+              ระบบดึงข้อมูลบทความจากเว็บ AI Deep Researchสร้างบทความ และโพสต์ไปยัง WordPress อัตโนมัติ
             </p>
             
             <div style={{ 
@@ -578,7 +926,7 @@ export default function Home() {
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
                 style={{
-                  width: '100%',
+                  width: '90%',
                   padding: '12px 16px',
                   fontSize: '16px',
                   border: '2px solid #ddd',
@@ -727,6 +1075,28 @@ export default function Home() {
                     
                     <div style={{ marginBottom: '10px' }}>
                       <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>
+                        ITHY Session Cookie:
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="gAAAAAB... (Session cookie จาก ithy.com)"
+                        value={scrapingSettings.ithySessionCookie}
+                        onChange={(e) => setScrapingSettings(prev => ({ ...prev, ithySessionCookie: e.target.value }))}
+                        style={{
+                          width: '100%',
+                          padding: '8px',
+                          border: '1px solid #ddd',
+                          borderRadius: '4px',
+                          fontSize: '12px'
+                        }}
+                      />
+                      <small style={{ color: '#666', fontSize: '11px' }}>
+                        คุกกี้สำหรับเข้าถึง ithy.com (ตรวจสอบได้จาก Developer Tools → Application → Cookies)
+                      </small>
+                    </div>
+                    
+                    <div style={{ marginBottom: '10px' }}>
+                      <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>
                         Target Classes:
                       </label>
                       <textarea
@@ -857,6 +1227,19 @@ export default function Home() {
                   >
                     🗑️ Clear Defaults
                   </button>
+                  <button
+                    onClick={testLoadSettings}
+                    style={{
+                      padding: '10px 15px',
+                      backgroundColor: '#fd7e14',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    🧪 ทดสอบการโหลด
+                  </button>
                 </div>
               </div>
             )}
@@ -901,219 +1284,284 @@ export default function Home() {
                   📝 รายการบทความ ({filteredArticles.length} รายการ)
                 </h2>
                 
-                <div style={{ overflowX: 'auto' }}>
-                  <table style={{ 
-                    width: '100%',
-                    borderCollapse: 'collapse',
+                {/* Table Container with Better Responsive */}
+                <div style={{ marginTop: '20px' }}>
+                  <div style={{ 
+                    overflowX: 'auto',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     backgroundColor: 'white'
                   }}>
-                    <thead>
-                      <tr style={{ backgroundColor: '#f8f9fa' }}>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'left',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '40px'
-                        }}>
-                          #
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'left',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '35%'
-                        }}>
-                          หัวข้อบทความ
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'left',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '120px'
-                        }}>
-                          วันที่สร้าง
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'left',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '80px'
-                        }}>
-                          Article ID
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'center',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '70px'
-                        }}>
-                          ลิงก์
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'center',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '70px'
-                        }}>
-                          คัดลอก
-                        </th>
-                        <th style={{ 
-                          padding: '12px',
-                          textAlign: 'center',
-                          borderBottom: '2px solid #dee2e6',
-                          fontWeight: 'bold',
-                          color: '#495057',
-                          width: '100px'
-                        }}>
-                          WordPress
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredArticles.map((article, index) => (
-                        <tr 
-                          key={article.articleId}
-                          style={{ 
-                            backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa',
-                            borderBottom: '1px solid #dee2e6'
-                          }}
-                        >
-                          <td style={{ 
-                            padding: '12px',
-                            color: '#6c757d',
-                            fontSize: '14px'
-                          }}>
-                            {index + 1}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            color: '#212529',
-                            fontWeight: '500',
-                            lineHeight: '1.4'
-                          }}>
-                            {truncateTitle(article.title)}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            color: '#6c757d',
-                            fontSize: '14px',
-                            whiteSpace: 'nowrap'
-                          }}>
-                            {article.date}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            color: '#6c757d',
-                            fontSize: '12px',
-                            fontFamily: 'monospace'
-                          }}>
-                            {article.articleId}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            textAlign: 'center'
-                          }}>
-                            {article.url && (
-                              <a 
-                                href={article.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  color: '#007bff',
-                                  textDecoration: 'none',
-                                  fontSize: '14px',
-                                  fontWeight: 'bold',
-                                  padding: '5px 10px',
-                                  borderRadius: '4px',
-                                  border: '1px solid #007bff',
-                                  backgroundColor: 'transparent',
-                                  transition: 'all 0.2s'
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.target.style.backgroundColor = '#007bff';
-                                  e.target.style.color = 'white';
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.target.style.backgroundColor = 'transparent';
-                                  e.target.style.color = '#007bff';
-                                }}
-                              >
-                                🔗 เปิด
-                              </a>
-                            )}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            textAlign: 'center'
-                          }}>
-                            {article.url && (
-                              <button
-                                onClick={() => copyLink(article.url)}
-                                style={{
-                                  background: 'none',
-                                  border: 'none',
-                                  color: '#007bff',
-                                  cursor: 'pointer',
-                                  fontSize: '14px',
-                                  fontWeight: 'bold'
-                                }}
-                              >
-                                📋 คัดลอก
-                              </button>
-                            )}
-                          </td>
-                          <td style={{ 
-                            padding: '12px',
-                            textAlign: 'center'
-                          }}>
-                            {article.url && (
-                              <button
-                                onClick={() => postToWordPress(article)}
-                                disabled={postingStates[article.articleId] === 'posting' || 
-                                         !wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword}
-                                style={{
-                                  backgroundColor: 
-                                    postingStates[article.articleId] === 'posting' ? '#ffc107' :
-                                    postingStates[article.articleId] === 'success' ? '#28a745' :
-                                    postingStates[article.articleId] === 'error' ? '#dc3545' :
-                                    (!wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword) ? '#6c757d' :
-                                    '#6f42c1',
-                                  color: 'white',
-                                  border: 'none',
-                                  padding: '5px 10px',
-                                  borderRadius: '4px',
-                                  cursor: (postingStates[article.articleId] === 'posting' || 
-                                          !wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword) ? 
-                                          'not-allowed' : 'pointer',
-                                  fontSize: '12px',
-                                  fontWeight: 'bold',
-                                  width: '90px'
-                                }}
-                              >
-                                {postingStates[article.articleId] === 'posting' ? '📤 กำลังโพสต์...' :
-                                 postingStates[article.articleId] === 'success' ? '✅ สำเร็จ' :
-                                 postingStates[article.articleId] === 'error' ? '❌ ล้มเหลว' :
-                                 (!wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword) ? '⚙️ ตั้งค่าก่อน' :
-                                 '📤 โพสต์เนื้อหา'}
-                              </button>
-                            )}
-                          </td>
+                    <style jsx>{`
+                      .responsive-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        background: white;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                      }
+                      
+                      .responsive-table thead {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      }
+                      
+                      .responsive-table th {
+                        padding: 16px 12px;
+                        text-align: center;
+                        font-weight: 700;
+                        color: white;
+                        font-size: 14px;
+                        border-bottom: 3px solid #5a67d8;
+                        position: relative;
+                      }
+                      
+                      .responsive-table th:nth-child(1) { width: 30px; min-width: 30px; }
+                      .responsive-table th:nth-child(2) { width: 21%; min-width: 200px; text-align: left; }
+                      .responsive-table th:nth-child(3) { width: 12%; min-width: 120px; }
+                      .responsive-table th:nth-child(4) { width: 12%; min-width: 120px; }
+                      .responsive-table th:nth-child(5) { width: 80px; min-width: 80px; }
+                      .responsive-table th:nth-child(6) { width: 90px; min-width: 90px; }
+                      .responsive-table th:nth-child(7) { width: 130px; min-width: 130px; }
+                      
+                      .responsive-table tbody tr {
+                        transition: all 0.3s ease;
+                        border-bottom: 1px solid #e2e8f0;
+                      }
+                      
+                      .responsive-table tbody tr:nth-child(even) {
+                        background-color: #f8fafc;
+                      }
+                      
+                      .responsive-table tbody tr:hover {
+                        background-color: #e6fffa !important;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                      }
+                      
+                      .responsive-table td {
+                        padding: 16px 12px;
+                        color: #374151;
+                        font-size: 14px;
+                        text-align: center;
+                        vertical-align: middle;
+                      }
+                      
+                      .responsive-table td:nth-child(2) {
+                        text-align: left;
+                        font-weight: 500;
+                        color: #1f2937;
+                      }
+                      
+                      .number-badge {
+                        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+                        color: white;
+                        border-radius: 50%;
+                        width: 32px;
+                        height: 32px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto;
+                        font-size: 12px;
+                        font-weight: bold;
+                        box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
+                      }
+                      
+                      .title-cell {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        line-height: 1.4;
+                        max-height: 2.8em;
+                      }
+                      
+                      .date-badge {
+                        background: #f3f4f6;
+                        color: #374151;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        border: 1px solid #e5e7eb;
+                      }
+                      
+                      .id-badge {
+                        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+                        color: #1e40af;
+                        padding: 6px 10px;
+                        border-radius: 6px;
+                        font-size: 11px;
+                        font-weight: bold;
+                        font-family: 'Monaco', 'Consolas', monospace;
+                        border: 1px solid #93c5fd;
+                      }
+                      
+                      .action-btn {
+                        padding: 8px 16px;
+                        border: none;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        text-decoration: none;
+                        display: inline-block;
+                        min-width: 70px;
+                        text-align: center;
+                      }
+                      
+                      .action-btn:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                      }
+                      
+                      .link-btn {
+                        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                        color: white;
+                      }
+                      
+                      .copy-btn {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                      }
+                      
+                      .wp-btn {
+                        color: white;
+                        min-width: 110px;
+                        font-size: 11px;
+                      }
+                      
+                      .wp-btn.posting { background: #f59e0b; opacity: 0.8; cursor: not-allowed; }
+                      .wp-btn.success { background: #10b981; }
+                      .wp-btn.error { background: #ef4444; }
+                      .wp-btn.disabled { background: #9ca3af; opacity: 0.6; cursor: not-allowed; }
+                      .wp-btn.ready { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+                      
+                      @media (max-width: 1024px) {
+                        .responsive-table th,
+                        .responsive-table td {
+                          padding: 12px 8px;
+                          font-size: 13px;
+                        }
+                        .responsive-table th:nth-child(2) { min-width: 180px; }
+                        .action-btn { padding: 6px 12px; font-size: 11px; }
+                      }
+                      
+                      @media (max-width: 768px) {
+                        .responsive-table th,
+                        .responsive-table td {
+                          padding: 10px 6px;
+                          font-size: 12px;
+                        }
+                        .responsive-table th:nth-child(2) { min-width: 150px; }
+                        .number-badge { width: 24px; height: 24px; font-size: 10px; }
+                        .action-btn { padding: 5px 8px; font-size: 10px; min-width: 60px; }
+                        .date-badge { padding: 4px 8px; font-size: 10px; }
+                        .id-badge { padding: 4px 6px; font-size: 9px; }
+                      }
+                      
+                      @media (max-width: 480px) {
+                        .responsive-table {
+                          font-size: 11px;
+                        }
+                        .responsive-table th,
+                        .responsive-table td {
+                          padding: 8px 4px;
+                        }
+                        .responsive-table th:nth-child(2) { min-width: 120px; }
+                        .action-btn { padding: 4px 6px; font-size: 9px; min-width: 50px; }
+                        .wp-btn { min-width: 80px; }
+                      }
+                    `}</style>
+                    <table className="responsive-table">
+                      <thead>
+                        <tr>
+                          <th>🔢</th>
+                          <th>📝 หัวข้อบทความ</th>
+                          <th>📅 วันที่สร้าง</th>
+                          <th>🆔 Article ID</th>
+                          <th>🔗 ลิงก์</th>
+                          <th>📋 คัดลอกลิงค์</th>
+                          <th>📤 WordPress</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {filteredArticles.map((article, index) => (
+                          <tr key={article.articleId}>
+                            <td>
+                              <div className="number-badge">
+                                {index + 1}
+                              </div>
+                            </td>
+                            <td>
+                              <div className="title-cell">
+                                {truncateTitle(article.title, 100)}
+                              </div>
+                            </td>
+                            <td>
+                              <div className="date-badge">
+                                {article.date}
+                              </div>
+                            </td>
+                            <td>
+                              <div className="id-badge">
+                                {article.articleId.substring(0, 12)}
+                              </div>
+                            </td>
+                            <td>
+                              {article.url && (
+                                <a 
+                                  href={article.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="action-btn link-btn"
+                                >
+                                  🔗 เปิด
+                                </a>
+                              )}
+                            </td>
+                            <td>
+                              {article.url && (
+                                <button
+                                  onClick={() => copyLink(article.url)}
+                                  className="action-btn copy-btn"
+                                >
+                                  📋 คัดลอก
+                                </button>
+                              )}
+                            </td>
+                            <td>
+                              {article.url && (
+                                <button
+                                  onClick={() => postToWordPress(article)}
+                                  disabled={postingStates[article.articleId] === 'posting' || 
+                                           !wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword}
+                                  className={`action-btn wp-btn ${
+                                    postingStates[article.articleId] === 'posting' ? 'posting' :
+                                    postingStates[article.articleId] === 'success' ? 'success' :
+                                    postingStates[article.articleId] === 'error' ? 'error' :
+                                    (!wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword) ? 'disabled' :
+                                    'ready'
+                                  }`}
+                                >
+                                  {postingStates[article.articleId] === 'posting' ? '⏳ กำลังโพสต์...' :
+                                   postingStates[article.articleId] === 'success' ? '✅ สำเร็จ' :
+                                   postingStates[article.articleId] === 'error' ? '❌ ล้มเหลว' :
+                                   (!wpSettings.siteUrl || !wpSettings.username || !wpSettings.appPassword) ? '⚙️ ตั้งค่าก่อน' :
+                                   '📤 โพสต์เนื้อหา'}
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
                 
                 <div style={{
@@ -1125,7 +1573,7 @@ export default function Home() {
                   color: '#555'
                 }}>
                   <strong>💡 คำแนะนำ:</strong> 
-                  <ul style={{ margin: '5px 0', paddingLeft: '20px' }}>
+                  <ul>
                     <li>• ตั้งค่า WordPress ก่อนใช้งาน</li>
                     <li>• ทดสอบการเชื่อมต่อเพื่อความมั่นใจ</li>
                     <li>• ปรับ Target Classes ตามเว็บไซต์</li>
@@ -1175,10 +1623,31 @@ export default function Home() {
                   💾 ระบบจัดเก็บข้อมูล
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '20px', color: '#6c757d' }}>
-                  <li><strong>IndexedDB:</strong> เก็บการตั้งค่าในเครื่อง</li>
-                  <li><strong>ไม่หายเมื่อ Refresh:</strong> ข้อมูลคงอยู่</li>
-                  <li><strong>Encryption:</strong> รหัสผ่านถูกเข้ารหัส</li>
+                  <li><strong>IndexedDB:</strong> เก็บการตั้งค่าในเครื่องของผู้ใช้</li>
+                  <li><strong>ไม่หายเมื่อ Refresh:</strong> ข้อมูลคงอยู่หลังรีเฟรชหน้า</li>
+                  <li><strong>Encryption:</strong> รหัสผ่านถูกเข้ารหัส Base64 + Key</li>
+                  <li><strong>Auto Save:</strong> บันทึกอัตโนมัติเมื่อมีการเปลี่ยนแปลง</li>
+                  <li><strong>Version Control:</strong> มีระบบการจัดการเวอร์ชัน</li>
                 </ul>
+              </div>
+            </div>
+            
+            {/* IndexedDB Status Display */}
+            <div style={{ 
+              marginTop: '15px', 
+              padding: '10px', 
+              backgroundColor: dbStatus?.status === 'working' ? '#d4edda' : dbStatus?.status === 'error' ? '#f8d7da' : '#fff3cd', 
+              borderRadius: '5px',
+              border: `1px solid ${dbStatus?.status === 'working' ? '#c3e6cb' : dbStatus?.status === 'error' ? '#f5c6cb' : '#ffeaa7'}`
+            }}>
+              <div style={{ color: dbStatus?.status === 'working' ? '#155724' : dbStatus?.status === 'error' ? '#721c24' : '#856404', fontWeight: 'bold', fontSize: '13px' }}>
+                {dbStatus?.status === 'working' ? '✅' : dbStatus?.status === 'error' ? '❌' : '⚠️'} สถานะ IndexedDB
+              </div>
+              <div style={{ fontSize: '12px', color: '#495057', marginTop: '5px' }}>
+                <strong>สถานะ:</strong> {dbStatus?.message || 'กำลังตรวจสอบ...'} • 
+                <strong>มีข้อมูล:</strong> {dbStatus?.hasData ? 'ใช่' : 'ไม่'} • 
+                <strong>พื้นที่ใช้:</strong> {storageInfo.used} • 
+                <strong>พื้นที่ทั้งหมด:</strong> {storageInfo.quota}
               </div>
             </div>
             
@@ -1190,12 +1659,20 @@ export default function Home() {
               border: '1px solid #b3d7ff'
             }}>
               <div style={{ color: '#0056b3', fontWeight: 'bold', fontSize: '13px' }}>
-                🔒 Security Features
+                🔒 Security Features & Cookie Guide
               </div>
               <div style={{ fontSize: '12px', color: '#495057', marginTop: '5px' }}>
-                <strong>HTTPS Only:</strong> การเชื่อมต่อใช้ HTTPS เท่านั้น • 
+                <strong>HTTP/HTTPS Compatible:</strong> รองรับการเชื่อมต่อทั้ง HTTP และ HTTPS • 
                 <strong>Local Storage:</strong> การตั้งค่าเก็บใน IndexedDB • 
-                <strong>Password Encryption:</strong> Application Password ถูกเข้ารหัส
+                <strong>Password Encryption:</strong> Application Password ถูกเข้ารหัส Base64
+              </div>
+              <div style={{ fontSize: '11px', color: '#0056b3', marginTop: '8px', lineHeight: '1.4' }}>
+                <strong>🔍 วิธีหา ITHY Session Cookie:</strong><br/>
+                1. เปิด ithy.com และเข้าสู่ระบบ<br/>
+                2. กด F12 เพื่อเปิด Developer Tools<br/>
+                3. ไปที่แท็บ Application → Storage → Cookies → https://ithy.com<br/>
+                4. หาคุกกี้ชื่อ "session" และคัดลอกค่าที่ขึ้นต้นด้วย "gAAAAAB..."<br/>
+                5. วางใส่ในช่อง ITHY Session Cookie ด้านบน
               </div>
             </div>
           </div>

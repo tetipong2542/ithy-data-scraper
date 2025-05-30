@@ -1,27 +1,76 @@
 {
   "name": "ithy-data-scraper",
-  "version": "1.0.0",
-  "description": "ระบบดึงข้อมูลจาก ithy.com และแสดงบนเว็บไซต์",
+  "version": "2.0.0",
+  "description": "ระบบดึงข้อมูลบทความจาก ithy.com และโพสต์ไปยัง WordPress อัตโนมัติ พร้อมระบบจัดการการตั้งค่าที่ครบถ้วน",
+  "main": "pages/index.js",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export",
+    "analyze": "cross-env ANALYZE=true next build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "next": "^14.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "axios": "^1.6.0",
-    "cheerio": "^1.0.0-rc.12"
+    "axios": "^1.6.2",
+    "cheerio": "^1.0.0-rc.12",
+    "next": "14.2.29",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "typescript": "^5.0.0",
-    "eslint": "^8.0.0",
-    "eslint-config-next": "^14.1.0"
+    "@next/bundle-analyzer": "^14.2.29",
+    "cross-env": "^7.0.3",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.29",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "keywords": [
+    "web-scraping",
+    "wordpress",
+    "nextjs",
+    "react",
+    "ithy",
+    "automation",
+    "content-management",
+    "indexeddb",
+    "data-scraper",
+    "cms",
+    "auto-publishing",
+    "content-processing"
+  ],
+  "author": {
+    "name": "AI Assistant",
+    "email": "assistant@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/ithy-data-scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/ithy-data-scraper/issues"
+  },
+  "homepage": "https://github.com/your-username/ithy-data-scraper#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 } 

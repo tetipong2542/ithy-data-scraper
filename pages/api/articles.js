@@ -7,23 +7,30 @@ export default async function handler(req, res) {
   }
 
   try {
-    // ดึงคุกกี้จาก environment variables
-    const sessionCookie = process.env.ITHY_SESSION_COOKIE;
+    // ดึงคุกกี้จาก query parameter หรือ environment variables (fallback)
+    const sessionCookie = req.query.sessionCookie || process.env.ITHY_SESSION_COOKIE;
     const intercomCookie = process.env.ITHY_INTERCOM_COOKIE;
 
+    // เพิ่มการแจ้งเตือนเมื่อไม่มี session cookie
     if (!sessionCookie) {
-      return res.status(400).json({ 
-        error: 'ไม่พบคุกกี้ในการตั้งค่า กรุณาตั้งค่า ITHY_SESSION_COOKIE ใน .env.local' 
-      });
+      console.log('⚠️ ไม่พบ Session Cookie - จะทดลองเข้าถึงแบบไม่มี authentication');
+    } else if (req.query.sessionCookie) {
+      console.log('🔑 ใช้ Session Cookie จาก UI');
+    } else {
+      console.log('🔑 ใช้ Session Cookie จาก Environment Variable');
     }
 
     // สร้างคุกกี้ header แบบครบถ้วน
     const cookieParts = [
       'intercom-device-id-j3aqi0fi=8f2c4809-cb64-403c-823f-37308dc98db7',
       'g_state={"i_l":0}',
-      `session=${sessionCookie}`,
       'is_pro=false'
     ];
+
+    // เพิ่ม session cookie ถ้ามี
+    if (sessionCookie) {
+      cookieParts.push(`session=${sessionCookie}`);
+    }
 
     // เพิ่ม intercom session ถ้ามี
     if (intercomCookie) {
@@ -32,7 +39,7 @@ export default async function handler(req, res) {
 
     const fullCookieHeader = cookieParts.join('; ');
 
-    console.log('🔑 ใช้คุกกี้:', fullCookieHeader.substring(0, 100) + '...');
+    console.log('🔑 Cookie Header:', sessionCookie ? 'พร้อม session' : 'ไม่มี session');
 
     // ดึงข้อมูลจาก ithy.com/account
     const response = await axios.get('https://ithy.com/account', {
@@ -54,16 +61,34 @@ export default async function handler(req, res) {
     // แยกข้อมูลด้วย cheerio
     const $ = cheerio.load(response.data);
     
+    // ตรวจสอบว่าเป็นหน้า login หรือไม่
+    const hasLoginForm = $('form[action*="login"], input[type="email"], input[type="password"]').length > 0;
+    const pageTitle = $('title').text();
+    
+    if (hasLoginForm) {
+      console.log('⚠️ ถูก redirect ไปหน้า login - session อาจหมดอายุ');
+      return res.status(401).json({ 
+        error: 'Session หมดอายุ กรุณาเข้าสู่ระบบ ithy.com ใหม่และอัพเดท ITHY Session Cookie',
+        debug: {
+          pageTitle,
+          hasLoginForm: true,
+          needsAuthentication: true
+        }
+      });
+    }
+    
     // ค้นหา articleHistory ใน JavaScript
     const scriptContent = response.data;
     const articleHistoryMatch = scriptContent.match(/const articleHistory = (\[.*?\]);/);
     
     if (!articleHistoryMatch) {
+      console.log('❌ ไม่พบ articleHistory ในหน้า');
       return res.status(404).json({ 
         error: 'ไม่พบข้อมูล articleHistory ในหน้า /account',
         debug: {
-          pageTitle: $('title').text(),
-          hasLoginForm: $('form[action*="login"], input[type="email"], input[type="password"]').length > 0
+          pageTitle: pageTitle,
+          hasLoginForm: hasLoginForm,
+          sessionStatus: sessionCookie ? 'มี session' : 'ไม่มี session'
         }
       });
     }
@@ -73,6 +98,8 @@ export default async function handler(req, res) {
     try {
       // แปลง JSON string เป็น array
       const articleHistoryData = JSON.parse(articleHistoryMatch[1]);
+      
+      console.log(`✅ พบและ parse articleHistory สำเร็จ: ${articleHistoryData.length} รายการ`);
       
       articles = articleHistoryData.map((article, index) => {
         // แปลง epoch timestamp เป็นวันที่
@@ -165,7 +192,9 @@ export default async function handler(req, res) {
       timestamp: new Date().toISOString(),
       debug: {
         sourceType: 'articleHistory',
-        pageTitle: $('title').text()
+        pageTitle: pageTitle,
+        sessionUsed: sessionCookie ? 'มี' : 'ไม่มี',
+        sessionSource: req.query.sessionCookie ? 'UI' : (process.env.ITHY_SESSION_COOKIE ? 'Environment' : 'ไม่มี')
       }
     });
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "ithy-scraper",
+  "name": "ithy-data-scraper",
   "builds": [
     {
       "src": "package.json",
@@ -17,12 +17,70 @@
       "dest": "/$1"
     }
   ],
+  "functions": {
+    "pages/api/articles.js": {
+      "maxDuration": 30
+    },
+    "pages/api/wordpress.js": {
+      "maxDuration": 30
+    },
+    "pages/api/settings.js": {
+      "maxDuration": 10
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=60, stale-while-revalidate=300"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
   },
-  "functions": {
-    "pages/api/**/*.js": {
-      "maxDuration": 30
-    }
-  }
+  "regions": ["sin1", "hnd1", "icn1"]
 } 
